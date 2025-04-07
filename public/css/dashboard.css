@@ -1,0 +1,72 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #007bff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group p {
+    margin: 0;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #333;
+}
+/* Profil Biodata di dashboard  */
+.foto-pegawai {
+    display: block;
+    max-width: 50%;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+
+
+/* TESTING KOTAK  */
+/* .box {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border: 10px solid white;
+    padding: 20px;
+    width: 200px;
+    height: 100px;
+  } */
+
+    /* border-top: 3px solid red; 
+    border-right: 3px dashed blue; 
+    border-bottom: 3px dotted green; 
+    border-left: 3px double orange;  */

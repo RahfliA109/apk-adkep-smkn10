@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .profile-table {
+            display: none; /* Tabel disembunyikan awalnya */
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .profile-table, .profile-table th, .profile-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .profile-table th {
+            background-color: #f2f2f2;
+        }
+
+        .toggle-btn {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- data diri/ biodata -->
+    <button class="toggle-btn" id="toggleButton">Tampilkan Biodata</button>
+
+    <table class="profile-table" id="biodataTable">
+        <thead>
+            <tr>
+                <th colspan="2">Informasi Profil</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Num</strong></td>
+                <td>: 20192205084</td>
+            </tr>
+            <tr>
+                <td><strong>Kelas</strong></td>
+                <td>: T1.603</td>
+            </tr>
+            <tr>
+                <td><strong>Jurusan</strong></td>
+                <td>: Folbank Information</td>
+            </tr>
+            <tr>
+                <td><strong>Tempat/Tgl Lahir</strong></td>
+                <td>: Pulau Masalima, 10 Agustus 1995</td>
+            </tr>
+            <tr>
+                <td><strong>Agama</strong></td>
+                <td>: Islam</td>
+            </tr>
+            <tr>
+                <td><strong>Alamat</strong></td>
+                <td>: Pulau Masalima</td>
+            </tr>
+            <tr>
+                <td><strong>Telepon</strong></td>
+                <td>: 20192205084</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- data 
+     / biodata -->
+
+    <script>
+        document.getElementById("toggleButton").addEventListener("click", function() {
+            var table = document.getElementById("biodataTable");
+            if (table.style.display === "none" || table.style.display === "") {
+                table.style.display = "table"; // Menampilkan tabel
+                this.textContent = "Sembunyikan Biodata"; // Mengubah teks tombol
+            } else {
+                table.style.display = "none"; // Menyembunyikan tabel
+                this.textContent = "Tampilkan Biodata"; // Mengubah teks tombol kembali
+            }
+        });
+    </script>
+
+</body>
+</html>

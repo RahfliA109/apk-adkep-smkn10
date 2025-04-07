@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background-color: #d2f1f9;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 850px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .left {
+    flex: 1;
+    background-color: #d2f1f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .left img {
+    max-width: 90%;
+  }
+
+  .right {
+    flex: 1;
+    padding: 40px;
+    position: relative;
+  }
+
+  .toggle-switch {
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+
+  .login-box h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 30px;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #333;
+  }
+
+  .input-icon {
+    display: flex;
+    align-items: center;
+    background: #f1f1f1;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .input-icon span {
+    margin-right: 8px;
+    font-size: 16px;
+  }
+
+  .input-icon input {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .forgot-password {
+    text-align: right;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .forgot-password a {
+    text-decoration: none;
+    color: #555;
+  }
+
+  .login-button {
+    width: 100%;
+    background-color: #1d2b3a;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .login-button:hover {
+    background-color: #14202b;
+  }
+
+  .register-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .register-link a {
+    color: #1d2b3a;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      width: 90%;
+    }
+
+    .left {
+      padding: 30px 0;
+    }
+
+    .right {
+      padding: 30px;
+    }
+  }
