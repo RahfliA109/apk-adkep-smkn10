@@ -1,0 +1,138 @@
+/* === GLOBAL STYLES === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #2c3e50;
+    padding-bottom: 8px;
+    margin-top: 10px;
+  }
+  
+  /* === FORM CONTAINR === */
+  .form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* === FORM GROUP (SETIAP INPUT) === */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2c3e50;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group input[type="date"],
+  .form-group input[type="tel"],
+  .form-group input[type="email"],
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  .form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+  /* === FILE UPLOAD === */
+  .form-group input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    background: #f8f9fa;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+  }
+  
+  /* === RADIO & CHECKBOX (JIKA ADA) === */
+  .radio-group, .checkbox-group {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .radio-group label, .checkbox-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  /* === BUTTON === */
+  button[type="submit"] {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  button[type="submit"]:hover {
+    background: #2980b9;
+  }
+  
+  /* === GRID LAYOUT UNTUK INPUT BERDUA (CONTOH: TEMPAT/TGL LAHIR) === */
+  .input-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .input-group .form-group {
+    flex: 1;
+  }
+  
+  /* === RESPONSIVE DESIGN === */
+  @media (max-width: 600px) {
+    .input-group {
+      flex-direction: column;
+      gap: 0;
+    }
+  
+    body {
+      padding: 10px;
+    }
+  
+    .form-container {
+      padding: 15px;
+    }
+  }
+  
+  /* === UTILITY CLASSES === */
+  .required:after {
+    content: " *";
+    color: #e74c3c;
+  }
+  
+  .hidden {
+    display: none;
+  }

@@ -1,72 +1,90 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
+/* Reset dasar untuk margin dan padding */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    box-sizing: border-box;
 }
 
-.container {
-    max-width: 600px;
-    margin: 20px auto;
+/* Styling untuk seluruh halaman */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
     padding: 20px;
-    background-color: white;
+}
+
+/* Container untuk dashboard */
+.dashboard-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling untuk header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #5e5e5e;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #777;
+}
+
+/* Container untuk langkah-langkah */
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Styling untuk tiap langkah */
+.step {
+    background-color: #f9f9f9;
     border-radius: 8px;
+    padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    color: #007bff;
-}
-
-.form-group {
+.step-number {
+    background-color: #4CAF50;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     margin-bottom: 15px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+.step h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.step p {
+    font-size: 1rem;
     color: #555;
 }
 
-.form-group p {
-    margin: 0;
-    padding: 8px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1em;
-    color: #333;
-}
-/* Profil Biodata di dashboard  */
-.foto-pegawai {
-    display: block;
-    max-width: 50%;
-    height: 100px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.step ul {
     margin-top: 10px;
+    padding-left: 20px;
 }
 
-
-
-/* TESTING KOTAK  */
-/* .box {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border: 10px solid white;
-    padding: 20px;
-    width: 200px;
-    height: 100px;
-  } */
-
-    /* border-top: 3px solid red; 
-    border-right: 3px dashed blue; 
-    border-bottom: 3px dotted green; 
-    border-left: 3px double orange;  */
+.step li {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 5px;
+}

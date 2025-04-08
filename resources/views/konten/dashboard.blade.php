@@ -1,93 +1,72 @@
 @extends('sidebar.sidebar')
+<link rel="stylesheet" href="css/dashboard.css">
 
-<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-<style>
-    .foto-pegawai {
-    border: 2px solid #000; /* Ubah nilai sesuai kebutuhan */
-}
-</style>
-
-{{-- Section untuk konten utama --}}
 @section('konten')
     <div class="container mx-auto py-8">
-        {{-- Bagian Pengenalan Aplikasi dengan Gambar Latar --}}
-        <div class="relative text-center mb-8">php artisan make:migration create_users_table --create=users
+    <div class="dashboard-container">
+        <header>
+            <h1>Selamat Datang di Aplikasi Kami!</h1>
+            <p>Ikuti prosedur berikut untuk memulai.</p>
+        </header>
 
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('asets/images.jpeg') }}');">
-                <div class="absolute inset-0 bg-black opacity-40"></div> {{-- Overlay untuk memperjelas teks --}}
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h2>Melengkapi Profil Anda</h2>
+                <p>Harap lengkapi data pada profil Anda agar kami bisa mempermudah pengisian data di kemudian hari.</p>
+                <p><strong>Cara Melengkapi Profil:</strong></p>
+                <ul>
+                    <li>Klik pada <strong>Ikon Profil</strong> di sudut kanan atas</li>
+                    <li>Masukkan informasi yang diperlukan (Nama, Email, Foto, dll.)</li>
+                    <li>Simpan perubahan Anda</li>
+                </ul>
             </div>
-            <div class="relative z-10">
-                <h2 class="text-5xl font-semibold text-white">Selamat Datang di Aplikasi Pembantu Administrasi Kepegawaian</h2>
-                <p class="text-lg text-white mt-4">Aplikasi ini dirancang untuk pengelolaan data kepegawaian, absensi, gaji, dan lainnya.</p>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h2>Menyiapkan Data yang Dibutuhkan</h2>
+                <p>Siapkan data yang akan digunakan dalam aplikasi untuk memastikan proses input berjalan lancar.</p>
+                <p><strong>Cara Menyiapkan Data:</strong></p>
+                <ul>
+                    <li>Kunjungi menu <strong>Data Pengguna</strong></li>
+                    <li>Pastikan file Anda dalam format yang didukung (PDF, JPG, DOCX, dll.)</li>
+                    <li>Unggah file yang diperlukan</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h2>Mulai Penggunaan Fitur Utama Aplikasi</h2>
+                <p>Setelah profil Anda lengkap dan data siap, Anda bisa langsung menggunakan fitur-fitur utama aplikasi.</p>
+                <p><strong>Cara Mengakses Fitur Utama:</strong></p>
+                <ul>
+                    <li>Pilih menu <strong>Fitur Utama</strong> dari sidebar</li>
+                    <li>Ikuti langkah-langkah yang tertera di setiap halaman fitur</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h2>Cek Pembaruan dan Notifikasi</h2>
+                <p>Pastikan Anda selalu memperbarui informasi terkait aplikasi dan cek pembaruan terbaru atau notifikasi penting.</p>
+                <p><strong>Cara Cek Notifikasi:</strong></p>
+                <ul>
+                    <li>Klik ikon <strong>Notifikasi</strong> di sudut kanan atas</li>
+                    <li>Periksa pembaruan terbaru atau pesan penting</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h2>Hubungi Dukungan</h2>
+                <p>Jika Anda menemui kendala atau membutuhkan bantuan lebih lanjut, tim dukungan kami siap membantu.</p>
+                <p><strong>Cara Menghubungi Dukungan:</strong></p>
+                <ul>
+                    <li>Klik <strong>Bantuan</strong> di menu utama</li>
+                    <li>Pilih <strong>Hubungi Kami</strong> dan pilih jenis dukungan yang Anda butuhkan (chat, email, atau telepon)</li>
+                </ul>
             </div>
         </div>
-            {{-- Fitur 1: Biodata Pegawai --}}
-            <div class="p-6 rounded-lg shadow-lg custom-border">
-                <h3 class="text-xl font-semibold text-gray-700 text-center">Biodata Pegawai</h3>
-
-                
-                        <div class="profile-container">
-        <h1>Profil Dashboard</h1>
-        <table class="profile-table">
-            <thead>
-                <tr>
-                    <th colspan="2">Informasi Profil</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Num</strong></td>
-                    <td>: 20192205084</td>
-                </tr>
-                <tr>
-                    <td><strong>Kelas</strong></td>
-                    <td>: T1.603</td>
-                </tr>
-                <tr>
-                    <td><strong>Jurusan</strong></td>
-                    <td>: Folbank Information</td>
-                </tr>
-                <tr>
-                    <td><strong>Tempat/Tgl Lahir</strong></td>
-                    <td>: Pulau Masalima, 10 Agustus 1995</td>
-                </tr>
-                <tr>
-                    <td><strong>Agama</strong></td>
-                    <td>: Islam</td>
-                </tr>
-                <tr>
-                    <td><strong>Alamat</strong></td>
-                    <td>: Pulau Masalima</td>
-                </tr>
-                <tr>
-                    <td><strong>Telepon</strong></td>
-                    <td>: 20192205084</td>
-                </tr>
-            </tbody>
-        </table>
+    </div>        
     </div>
-                
-                    <!-- </div> -->
-                </div>
-            </div>
-        
-
-        {{-- Bagian Kontak atau Dukungan --}}
-        <div class="mt-8 text-center">
-            <p class="text-lg text-gray-600">Butuh bantuan atau informasi lebih lanjut? Hubungi kami melalui kontak yang tersedia.</p>
-            <a href="mailto:support@example.com" class="text-blue-500 underline mt-4 inline-block">Hubungi Kami</a>
-        </div>
-    </div>
-
-    {{-- JavaScript untuk Toggle Dropdown --}}
-    <script>
-        // Ambil elemen yang dibutuhkan
-        const toggleButton = document.getElementById('toggleBiodata');
-        const biodataDiv = document.getElementById('biodata');
-
-        // Fungsi untuk toggle tampilan biodata
-        toggleButton.addEventListener('click', () => {
-            biodataDiv.classList.toggle('hidden');  // Toggle visibility
-        });
-    </script>
 @endsection

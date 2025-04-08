@@ -22,10 +22,27 @@ Route::get('/', [MainController::class, 'index'])->name('login.login');
 Route::get('/registrasi', [MainController::class, 'registrasi'])->name('login.registrasi');
 
 Route::get('datadiri', [MainController::class, 'datadiri']);
+Route::post('/datadiri', [MainController::class, 'store']);
+Route::get('/datadiri/hasil', [MainController::class, 'hasil']);
+
+
+
 Route::get('dashboard',[MainController::class,'dashboard']);
-Route::get('sertifikat', [MainController::class, 'sertifikat'])->name('konten.dashboard');
-Route::get('pendidikan', [MainController::class, 'pendidikan'])->name('konten.riwayat_pendidikan');// back to dashbord
-Route::get('penugasan', [MainController::class, 'penugasan'])->name('konten.riwayat_penugasan');// back to dashbord
+
+
+
+
+Route::get('menikah', [MainController::class, 'menikah'])->name('konten.menikah');
+
+
+
+
+Route::get('pendidikan', [MainController::class, 'pendidikan'])->name('konten.pendidikan');
+
+
+
+
+Route::get('penugasan', [MainController::class, 'penugasan'])->name('konten.penugasan');
 
 //testing 
 Route::get('testing',[MainController::class,'test'])->name('testing.test');

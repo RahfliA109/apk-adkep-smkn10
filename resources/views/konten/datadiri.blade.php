@@ -1,73 +1,74 @@
 @extends('sidebar.sidebar')
-<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/form-input.css">
 <title>biodata</title>
 
 @section('konten')
     <div class="container mx-auto py-8">
-        <h2 class="text-3xl font-semibold mb-6">Form Input Data Pegawai</h2>
-        
-        <!-- Form Input -->
-        <form action="/submit" method="POST">
-            @csrf <!-- Untuk perlindungan terhadap CSRF -->
-            
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">Nama</label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
+    <h2>Biodata Diri</h2>
+        <form action="/datadiri" method="POST" id="biodataForm">
+        <!-- Data Pribadi -->
+        <div class="form-group">
+        <label>Nama Lengkap (Sesuai KTP)</label>
+        <input type="text" name="nama" required>
+        </div>
+        <div class="form-group">
+        <label>NIK</label>
+        <input type="text" name="nik" required>
+        </div>
+        <div class="form-group">
+        <label>NUPTK/NIP</label>
+        <input type="text" name="nuptk_nip" required>
+        </div>
+        <div class="form-group">
+        <label>Tempat, Tanggal Lahir</label>
+        <input type="text" name="tempat_lahir" placeholder="Tempat" required>
+        <input type="date" name="tanggal_lahir" required>
+        </div>
+        <div class="form-group">
+        <label>Jenis Kelamin</label>
+        <select name="jenis_kelamin" required>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select>
+        </div>
+        <div class="form-group">
+        <label>Agama</label>
+        <input type="text" name="agama" required>
+        </div>
+        <div class="form-group">
+        <label>Status Kawin</label>
+        <select name="status_kawin" required>
+            <option value="Belum Kawin">Belum Kawin</option>
+            <option value="Kawin">Kawin</option>
+            <option value="Duda/Janda">Duda/Janda</option>
+        </select>
+        </div>
 
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">NIP</label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
-            
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-semibold text-gray-700">NUPTK</label>
-                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan email" required>
-            </div>
-            
-            <div class="mb-4">
-                <label for="jabatan" class="block text-sm font-semibold text-gray-700">Status Kepegawaian</label>
-                <input type="text" id="jabatan" name="jabatan" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan jabatan" required>
-            </div>
+        <!-- Kontak & Alamat -->
+        <div class="form-group">
+        <label>Alamat KTP</label>
+        <textarea name="alamat_ktp" required></textarea>
+        </div>
+        <div class="form-group">
+        <label>Nomor Telepon/HP</label>
+        <input type="tel" name="no_hp" required>
+        </div>
+        <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required>
+        </div>
 
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">Sumber Gaji</label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
+        <!-- Dokumen -->
+        <div class="form-group">
+        <label>Upload Foto (Format: JPG, Max 2MB)</label>
+        <input type="file" name="foto" accept="image/jpeg">
+        </div>
+        <div class="form-group">
+        <label>Upload Scan KTP</label>
+        <input type="file" name="scan_ktp" accept="application/pdf, image/*">
+        </div>
 
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">Wilayah Pembayaran </label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
-            
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">No KTP</label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
-
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">Tempat Tanggal Lahir </label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
-
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">Alamat Rumah </label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
-
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">Email Pribadi</label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
-
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-semibold text-gray-700">No Handphone</label>
-                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama" required>
-            </div>
-
-            <div class="mb-4">
-                <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">Kirim</button>
-            </div>
+        <button type="submit">Simpan Biodata</button>
         </form>
     </div>
 @endsection

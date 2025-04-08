@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #2c3e50;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.navbar-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+
+.profile-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3498db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+
+.profile-logo:hover {
+    transform: scale(1.1);
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: calc(100vh - 60px);
+    background-color: #34495e;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    transform: translateX(0);
+    z-index: 90;
+}
+
+/* Hapus toggle button dari sidebar */
+.sidebar .toggle-btn {
+    display: none;
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.sidebar-header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #2c3e50;
+}
+
+
+.sidebar-logo {
+    width: 230px;
+    height: 90px;
+    margin: 0 auto;
+    background-color: none;
+    /* border-radius: 50%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; Ini yang akan memotong bagian gambar yang melebihi lingkaran */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    transition: all 0.3s ease;
+}
+
+.sidebar-logo img {
+    width: 80%; /* Gambar akan mengisi lebar container */
+    height: 80%; /* Gambar akan mengisi tinggi container */
+    object-fit: cover;
+} 
+
+.sidebar-menu {
+    padding: 20px 0;
+}
+
+.menu-item {
+    position: relative;
+}
+
+.menu-item a {
+    display: block;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-item a:hover {
+    background-color: #2c3e50;
+    color: #3498db;
+}
+
+.menu-item a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.4), transparent);
+    transition: all 0.5s ease;
+}
+
+.menu-item a:hover::before {
+    left: 100%;
+}
+
+.menu-item.active a {
+    background-color: #2c3e50;
+    color: #3498db;
+    border-left: 4px solid #3498db;
+}
+
+.sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    background-color: #2c3e50;
+}
+
+.sub-menu.show {
+    max-height: 500px;
+}
+
+.sub-menu a {
+    padding-left: 40px;
+    font-size: 0.9rem;
+}
+
+.toggle-btn {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+
+.toggle-btn:hover {
+    color: #3498db;
+}
+
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.expanded {
+    margin-left: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-item a {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.menu-item:nth-child(1) a { animation-delay: 0.1s; }
+.menu-item:nth-child(2) a { animation-delay: 0.2s; }
+.menu-item:nth-child(3) a { animation-delay: 0.3s; }
+.menu-item:nth-child(4) a { animation-delay: 0.4s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .main-content {
+        margin-left: 0;
+    }
+}
