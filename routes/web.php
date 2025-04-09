@@ -29,9 +29,12 @@ Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard'
 Route::get('/datadiri', [MainController::class, 'datadiri'])->name('datadiri');        // Form biodata
 Route::post('/datadiri', [MainController::class, 'store'])->name('datadiri.store');     // Simpan biodata
 Route::get('/datadiri/hasil', [MainController::class, 'hasil'])->name('datadiri.hasil'); // Lihat hasil biodata
-Route::get('/datadiri/edit/{id}', [MainController::class, 'edit'])->name('datadiri.edit'); //Edit 
-Route::delete('/datadiri/delete/{id}', [MainController::class, 'destroy'])->name('datadiri.destroy'); //Delete
 
+// Edit & Update Biodata
+Route::get('/datadiri/edit/{id}', [MainController::class, 'editDatadiri'])->name('datadiri.edit');       // Edit form
+Route::put('/datadiri/update/{id}', [MainController::class, 'updateDatadiri'])->name('datadiri.update');
+// Delete Biodata
+Route::delete('/datadiri/delete/{id}', [MainController::class, 'deleteDatadiri'])->name('datadiri.destroy'); // Delete
 
 // ========================== Riwayat Menikah ==========================
 Route::get('/menikah', [MainController::class, 'menikah'])->name('konten.menikah');     // Form riwayat menikah
