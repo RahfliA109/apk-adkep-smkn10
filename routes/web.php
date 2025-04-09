@@ -7,42 +7,39 @@ use App\Http\Controllers\MainController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// ========================== Redirect Default ==========================
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
-Route::get('/', [MainController::class, 'index'])->name('login.login');
-Route::get('/registrasi', [MainController::class, 'registrasi'])->name('login.registrasi');
+// ========================== Auth (Login, Logout, Register) ==========================
+Route::get('/login', [MainController::class, 'index'])->name('login');                 // Halaman login
+Route::post('/login', [MainController::class, 'login'])->name('login.proses');         // Proses login
+Route::get('/logout', [MainController::class, 'logout'])->name('logout');              // Logout
 
-Route::get('datadiri', [MainController::class, 'datadiri']);
-Route::post('/datadiri', [MainController::class, 'store']);
-Route::get('/datadiri/hasil', [MainController::class, 'hasil']);
+Route::get('/registrasi', [MainController::class, 'registrasi'])->name('login.registrasi'); // Halaman registrasi
+Route::post('/registrasi', [MainController::class, 'registerStore'])->name('register.store'); // Proses registrasi
 
+// ========================== Dashboard ==========================
+Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
 
-
-Route::get('dashboard',[MainController::class,'dashboard']);
-
-
-
-
-Route::get('menikah', [MainController::class, 'menikah'])->name('konten.menikah');
-
-
-
-
-Route::get('pendidikan', [MainController::class, 'pendidikan'])->name('konten.pendidikan');
+// ========================== Biodata ==========================
+Route::get('/datadiri', [MainController::class, 'datadiri'])->name('datadiri');        // Form biodata
+Route::post('/datadiri', [MainController::class, 'store'])->name('datadiri.store');     // Simpan biodata
+Route::get('/datadiri/hasil', [MainController::class, 'hasil'])->name('datadiri.hasil'); // Lihat hasil biodata
+Route::get('/datadiri/edit/{id}', [MainController::class, 'edit'])->name('datadiri.edit'); //Edit 
+Route::delete('/datadiri/delete/{id}', [MainController::class, 'destroy'])->name('datadiri.destroy'); //Delete
 
 
+// ========================== Riwayat Menikah ==========================
+Route::get('/menikah', [MainController::class, 'menikah'])->name('konten.menikah');     // Form riwayat menikah
+Route::post('/riwayat-menikah', [MainController::class, 'storeMenikah'])->name('menikah.store'); // Simpan data menikah
 
+// ========================== Pendidikan & Penugasan ==========================
+Route::get('/pendidikan', [MainController::class, 'pendidikan'])->name('konten.pendidikan'); // Halaman pendidikan
+Route::get('/penugasan', [MainController::class, 'penugasan'])->name('konten.penugasan');     // Halaman penugasan
 
-Route::get('penugasan', [MainController::class, 'penugasan'])->name('konten.penugasan');
-
-//testing 
-Route::get('testing',[MainController::class,'test'])->name('testing.test');
+// ========================== Testing ==========================
+Route::get('/testing', [MainController::class, 'test'])->name('testing.test');
