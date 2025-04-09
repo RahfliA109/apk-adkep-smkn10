@@ -3,46 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Page Native</title>
-  <link rel="stylesheet" href="css/login.css">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 <body>
   <div class="container">
     <div class="left">
-      <img src="aset/logologin.png" alt="Ilustrasi" />
+      <img src="{{ asset('aset/logologin.png') }}" alt="Ilustrasi" />
     </div>
     <div class="right">
       <div class="login-box">
         <h2>SELAMAT DATANG</h2>
-        <div class="input-group">
-          <label>Nomor NIP</label>
-          <div class="input-icon">
-            <span>👤</span>
-            <input type="text" placeholder="Masukkan NIP" />
+
+        @if(session('error'))
+          <div style="color: red; margin-bottom: 10px;">
+            {{ session('error') }}
           </div>
-        </div>
-        <div class="input-group">
-          <label>Password</label>
-          <div class="input-icon">
-            <span>🔒</span>
-            <input type="password" placeholder="Masukkan Password" />
+        @endif
+
+        {{-- FORM LOGIN --}}
+        <form method="POST" action="{{ route('login.proses') }}">
+          @csrf
+          <div class="input-group">
+            <label>Nomor NIP</label>
+            <div class="input-icon">
+              <span>👤</span>
+              <input type="text" name="nuptk_nip" placeholder="Masukkan NIP" required />
+            </div>
           </div>
-        </div>
-        <div class="forgot-password">
-          <a href="#">Lupa Password?</a>
-        </div>
-        <button class="login-button">Masuk</button>
+          <div class="input-group">
+            <label>Password</label>
+            <div class="input-icon">
+              <span>🔒</span>
+              <input type="password" name="password" placeholder="Masukkan Password" required />
+            </div>
+          </div>
+          <div class="forgot-password">
+            <a href="#">Lupa Password?</a>
+          </div>
+          <button class="login-button" type="submit">Masuk</button>
+        </form>
+
         <div class="register-link">
-          Dont Have Account? <a href="{{route('login.registrasi')}}">Daftar</a>
+          Belum punya akun? <a href="{{ route('login.registrasi') }}">Daftar</a>
         </div>
       </div>
     </div>
   </div>
-
-  <script>
-    function toggleSwitch() {
-      alert("Fitur toggle belum aktif!");
-    }
-  </script>
 </body>
 </html>
