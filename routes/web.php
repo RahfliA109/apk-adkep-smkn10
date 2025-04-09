@@ -23,9 +23,9 @@ Route::get('/registrasi', [MainController::class, 'registrasi'])->name('login.re
 
 Route::get('datadiri', [MainController::class, 'datadiri']);
 Route::post('/datadiri', [MainController::class, 'store']);
-Route::get('/datadiri/hasil', [MainController::class, 'hasil']);
-
-
+Route::get('/datadiri/hasil', [MainController::class, 'hasil'])->name('datadiri.hasil');
+Route::get('/datadiri/edit/{id}', [MainController::class, 'edit']);
+Route::post('/datadiri/update/{id}', [MainController::class, 'update']);
 
 Route::get('dashboard',[MainController::class,'dashboard']);
 

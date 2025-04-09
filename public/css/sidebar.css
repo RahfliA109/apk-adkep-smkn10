@@ -197,6 +197,74 @@ body {
     margin-left: 0;
 }
 
+/* profil css */
+/* Posisi dan style dasar */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-logo {
+    background-color: #2563eb;
+    color: white;
+    width: 40px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.profile-logo:hover {
+    background-color: #1d4ed8;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 48px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease;
+    z-index: 10;
+    min-width: 150px;
+    overflow: hidden;
+}
+
+.dropdown-menu a,
+.dropdown-menu form button {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #333;
+    background: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu form button:hover {
+    background: #f3f4f6;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }

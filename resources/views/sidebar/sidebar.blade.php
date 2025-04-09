@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar dengan Animasi</title>
-    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="{{asset('css.sidebar')}}">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <button class="toggle-btn" id="toggleBtn">☰</button>
         <div class="navbar-title"></div>
-        <div class="profile-logo">P</div>
+        <div class="dropdown-container">
+        <div class="profile-logo" onclick="toggleDropdown()">P</div>
+
+        <div id="dropdownMenu" class="dropdown-menu">
+            <a href="/profil">Profil</a>
+            <a href="/ganti-password">Ganti Password</a>
+            <form method="POST" action="/logout">
+                @csrf
+                <button type="submit">Log Out</button>
+            </form>
+        </divB>
+        </div>
+
     </nav>
 
     <!-- Sidebar -->
@@ -37,7 +49,7 @@
             </div>
         </div>
     </aside>
-    <script src="js/sidebar.js"></script>
+    <script src="{{asset('js.sidebar')}}"></script>
 
     <!-- Main Content -->
     <main class="main-content w-full">

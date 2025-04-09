@@ -25,3 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', handleResize);
     handleResize(); // Initial check
 });
+
+function toggleDropdown() {
+    const menu = document.getElementById('dropdownMenu');
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+
+// Tutup saat klik di luar
+window.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown-container')) {
+        document.getElementById('dropdownMenu').style.display = 'none';
+    }
+});
