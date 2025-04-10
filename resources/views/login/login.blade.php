@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="forgot-password">
-            <a href="#">Lupa Password?</a>
+            <a href="{{route('lupa')}}">Lupa Password?</a>
           </div>
           <button class="login-button" type="submit">Masuk</button>
         </form>

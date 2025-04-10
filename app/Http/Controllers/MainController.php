@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
@@ -14,79 +13,54 @@ class MainController extends Controller
         return view('testing.test');
     }
 
-    // ==================== LOGIN ====================
-    public function index(){
+
+    public function kembali(){
         return view('login.login');
     }
 
-    public function login(Request $request)
+    public function lupa()
+    {
+        return view('login.lupapw'); // menyesuaikan dengan lokasi blade kamu
+    }
+    
+    public function sendResetLink(Request $request)
     {
         $request->validate([
-            'nuptk_nip' => 'required|string',
-            'password' => 'required|string',
+            'email' => 'required|email',
         ]);
-
-        $user = DB::table('user')->where('nuptk_nip', $request->nuptk_nip)->first();
-
-        if ($user && Hash::check($request->password, $user->password)) {
-            Session::put('user', $user);
-            return redirect()->route('dashboard');
-        } else {
-            return back()->with('error', 'NIP atau password salah');
-        }
+    
+        // Sementara tampilkan notifikasi sukses saja
+        return back()->with('success', 'Link reset telah dikirim ke email jika tersedia.');
     }
-
-    public function logout()
-    {
-        Session::forget('user');
-        return redirect()->route('login.login');
-    }
-
-    public function registrasi(){
-        return view('login.registrasi');
-    }
-
-    public function masuk(){
-        return view('konten.dashboard');
-    }
-
-    // ==================== REGISTRASI USER ====================
-    public function registerStore(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'nuptk_nip' => 'required|string|max:50|unique:user,nuptk_nip',
-            'email' => 'required|email|unique:user,email',
-            'no_hp' => 'required|string|max:20',
-            'password' => 'required|string|min:6',
-        ]);
-
-        DB::table('user')->insert([
-            'nama' => $request->nama,
-            'nuptk_nip' => $request->nuptk_nip,
-            'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'password' => Hash::make($request->password),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        return redirect()->route('login.login')->with('success', 'Registrasi berhasil! Silakan login.');
-    }
+    
+    
 
     // ==================== BIODATA ====================
-    public function datadiri(){
+    public function datadiri()
+    {
         $user = Session::get('user');
+    
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+    
         $data = DB::table('datadiri')->where('nuptk_nip', $user->nuptk_nip)->first();
         return view('konten.datadiri', compact('data'));
     }
 
     public function store(Request $request)
     {
+        $user = Session::get('user');
+    
+        // 🚨 Cek apakah data sudah ada untuk NIP tersebut
+        $existing = DB::table('datadiri')->where('nuptk_nip', $user->nuptk_nip)->first();
+        if ($existing) {
+            return redirect()->route('datadiri')->with('warning', 'Data sudah ada. Silakan edit.');
+        }
+    
         $validated = $request->validate([
             'nama'          => 'required',
             'nik'           => 'required',
-            'nuptk_nip'     => 'required',
             'tempat_lahir'  => 'required',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
@@ -98,22 +72,26 @@ class MainController extends Controller
             'foto'          => 'nullable|image|mimes:jpg,jpeg|max:2048',
             'scan_ktp'      => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
-
+    
         if ($request->hasFile('foto')) {
             $validated['foto'] = $request->file('foto')->store('foto', 'public');
         }
-
+    
         if ($request->hasFile('scan_ktp')) {
             $validated['scan_ktp'] = $request->file('scan_ktp')->store('ktp', 'public');
         }
-
+    
+        // Gunakan NIP dari session user
+        $validated['nuptk_nip'] = $user->nuptk_nip;
+    
         $id = DB::table('datadiri')->insertGetId(array_merge(
             $validated,
             ['created_at' => now(), 'updated_at' => now()]
         ));
-
+    
         return redirect()->route('datadiri.hasil', ['id' => $id]);
     }
+    
 
     public function hasil(Request $request)
     {
