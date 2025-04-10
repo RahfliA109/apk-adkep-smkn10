@@ -67,7 +67,7 @@
             @enderror
         </div>
         
-        <button type="submit" class="btn-submit">Simpan Data</button>
+        <button type="submit" class="btn-submit">Update</button>
         <a href="{{ route('dashboard') }}" class="btn-cancel">Kembali</a>
     </form>
 </div>
