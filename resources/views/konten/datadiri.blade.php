@@ -10,53 +10,53 @@
             <!-- Data Pribadi -->
             <div class="form-group">
                 <label>Nama Lengkap (Sesuai KTP)</label>
-                <input type="text" name="nama" value="{{ $data->nama ?? '' }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="text" name="nama" value="{{ old('nama', $data->nama ?? '') }}" {{ $data ? 'readonly' : '' }} required>
             </div>
             <div class="form-group">
                 <label>NIK</label>
-                <input type="text" name="nik" value="{{ $data->nik ?? '' }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="text" name="nik" value="{{ old('nik', $data->nik ?? '') }}" {{ $data ? 'readonly' : '' }} required>
             </div>
             <div class="form-group">
                 <label>NUPTK/NIP</label>
-                <input type="text" name="nuptk_nip" value="{{ $data->nuptk_nip ?? '' }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="text" name="nuptk_nip" value="{{ old('nuptk_nip', $data->nuptk_nip ?? '') }}" {{ $data ? 'readonly' : '' }} required>
             </div>
             <div class="form-group">
                 <label>Tempat, Tanggal Lahir</label>
-                <input type="text" name="tempat_lahir" value="{{ $data->tempat_lahir ?? '' }}" {{ $data ? 'readonly' : '' }} required>
-                <input type="date" name="tanggal_lahir" value="{{ $data->tanggal_lahir ?? '' }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir', $data->tempat_lahir ?? '') }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir', $data->tanggal_lahir ?? '') }}" {{ $data ? 'readonly' : '' }} required>
             </div>
             <div class="form-group">
                 <label>Jenis Kelamin</label>
                 <select name="jenis_kelamin" {{ $data ? 'disabled' : '' }} required>
-                    <option value="Laki-laki" {{ (isset($data) && $data->jenis_kelamin == 'Laki-laki') ? 'selected' : '' }}>Laki-laki</option>
-                    <option value="Perempuan" {{ (isset($data) && $data->jenis_kelamin == 'Perempuan') ? 'selected' : '' }}>Perempuan</option>
+                    <option value="Laki-laki" {{ old('jenis_kelamin', $data->jenis_kelamin ?? '') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                    <option value="Perempuan" {{ old('jenis_kelamin', $data->jenis_kelamin ?? '') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Agama</label>
-                <input type="text" name="agama" value="{{ $data->agama ?? '' }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="text" name="agama" value="{{ old('agama', $data->agama ?? '') }}" {{ $data ? 'readonly' : '' }} required>
             </div>
             <div class="form-group">
                 <label>Status Kawin</label>
                 <select name="status_kawin" {{ $data ? 'disabled' : '' }} required>
-                    <option value="Belum Kawin" {{ (isset($data) && $data->status_kawin == 'Belum Kawin') ? 'selected' : '' }}>Belum Kawin</option>
-                    <option value="Kawin" {{ (isset($data) && $data->status_kawin == 'Kawin') ? 'selected' : '' }}>Kawin</option>
-                    <option value="Duda/Janda" {{ (isset($data) && $data->status_kawin == 'Duda/Janda') ? 'selected' : '' }}>Duda/Janda</option>
+                    <option value="Belum Kawin" {{ old('status_kawin', $data->status_kawin ?? '') == 'Belum Kawin' ? 'selected' : '' }}>Belum Kawin</option>
+                    <option value="Kawin" {{ old('status_kawin', $data->status_kawin ?? '') == 'Kawin' ? 'selected' : '' }}>Kawin</option>
+                    <option value="Duda/Janda" {{ old('status_kawin', $data->status_kawin ?? '') == 'Duda/Janda' ? 'selected' : '' }}>Duda/Janda</option>
                 </select>
             </div>
 
             <!-- Kontak & Alamat -->
             <div class="form-group">
                 <label>Alamat KTP</label>
-                <textarea name="alamat_ktp" {{ $data ? 'readonly' : '' }} required>{{ $data->alamat_ktp ?? '' }}</textarea>
+                <textarea name="alamat_ktp" {{ $data ? 'readonly' : '' }} required>{{ old('alamat_ktp', $data->alamat_ktp ?? '') }}</textarea>
             </div>
             <div class="form-group">
                 <label>Nomor Telepon/HP</label>
-                <input type="tel" name="no_hp" value="{{ $data->no_hp ?? '' }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="tel" name="no_hp" value="{{ old('no_hp', $data->no_hp ?? '') }}" {{ $data ? 'readonly' : '' }} required>
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" value="{{ $data->email ?? '' }}" {{ $data ? 'readonly' : '' }} required>
+                <input type="email" name="email" value="{{ old('email', $data->email ?? '') }}" {{ $data ? 'readonly' : '' }} required>
             </div>
 
             <!-- Dokumen -->
@@ -82,6 +82,7 @@
             @endif
         </form>
     </div>
+
     @if ($data)
     <div class="flex gap-4 mt-4">
         <a href="{{ route('datadiri.edit', $data->id) }}" class="btn-edit">Edit</a>
@@ -93,4 +94,3 @@
     </div>
     @endif
 @endsection
-
