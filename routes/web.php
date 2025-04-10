@@ -18,7 +18,6 @@ Route::middleware(['guest'])->group(function () {
 Route::post('/login', [MainController::class, 'login'])->name('login.proses');
 Route::post('/registrasi', [MainController::class, 'registerStore'])->name('register.store');
 Route::get('/logout', [MainController::class, 'logout'])->name('logout');
->>>>>>> 0667946f2d9a213c95484e8fa993eb3c6ab1b964
 
 // ==================== AUTHENTICATED ROUTES ====================
 Route::middleware(['session.auth'])->group(function () {
