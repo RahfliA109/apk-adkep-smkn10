@@ -8,7 +8,6 @@ Route::get('/', function () {
     return redirect()->route('login'); // Redirect ke halaman login
 });
 
-<
 // ==================== AUTHENTICATION ROUTES ====================
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [MainController::class, 'index'])->name('login');
