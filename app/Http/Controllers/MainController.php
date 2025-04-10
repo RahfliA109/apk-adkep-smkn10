@@ -95,7 +95,6 @@ class MainController extends Controller
 
         Log::info('New user registered: ' . $request->nuptk_nip);
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
->>>>>>> 0667946f2d9a213c95484e8fa993eb3c6ab1b964
     }
 
     // ==================== DASHBOARD ====================

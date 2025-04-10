@@ -52,7 +52,7 @@ Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard'
     Route::get('/penugasan', [MainController::class, 'penugasan'])->name('konten.penugasan');
     Route::get('/penugasan', [MainController::class, 'penugasan'])->name('penugasan.index');
 Route::post('/penugasan/store', [MainController::class, 'storePenugasan'])->name('penugasan.store');
->>>>>>> 0667946f2d9a213c95484e8fa993eb3c6ab1b964
+
 
     // Testing
     Route::get('/testing', [MainController::class, 'test'])->name('testing.test');
