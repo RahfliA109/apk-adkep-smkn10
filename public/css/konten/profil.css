@@ -1,0 +1,109 @@
+/* Container utama */
+.profile-container {
+    background: white;
+    border: none;
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+/* Wrapper kanan-kiri */
+.flex-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Bagian kiri untuk form */
+.kiri {
+    width: 60%;
+}
+
+/* Bagian kanan untuk gambar */
+.kanan {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Gambar profil */
+.gambar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.gambar img {
+    width: 120px;
+    height: 120px;
+    border: 4px solid black; 
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Input Form */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="nip"],
+.form-group input[type="file"] {
+    padding: 8px;
+    color: black;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+/* Label */
+label {
+    color: black;
+    margin-bottom: 5px;
+}
+
+/* Tombol Aksi */
+.form-button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-back {
+    background-color: grey;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-update {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-back:hover,
+.btn-update:hover,
+.btn-delete:hover {
+    opacity: 0.9;
+}

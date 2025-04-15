@@ -1,0 +1,112 @@
+/* navbar.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #2c3e50;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.navbar-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+.toggle-btn {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    color: #3498db;
+}
+
+/* Profile dropdown styles */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3498db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-logo:hover {
+    transform: scale(1.1);
+    background-color: #1d4ed8;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 48px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease;
+    z-index: 10;
+    min-width: 150px;
+    overflow: hidden;
+}
+
+.dropdown-menu a,
+.dropdown-menu form button {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #333;
+    background: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu form button:hover {
+    background: #f3f4f6;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+

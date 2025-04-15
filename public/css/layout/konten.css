@@ -1,0 +1,7 @@
+.konten{
+    margin-left: 250px; /* Offset untuk sidebar */
+    margin-top: 60px; /* Offset untuk navbar */
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: calc(100vh - 60px);
+}

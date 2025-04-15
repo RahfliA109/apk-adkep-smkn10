@@ -1,11 +1,15 @@
-@extends('sidebar.sidebar')
-<link rel="stylesheet" href="css/dashboard.css">
+@extends('layout.sidebar')
+<link rel="stylesheet" href="css/konten/dashboard.css">
 
 @section('konten')
     <div class="container mx-auto py-8">
     <div class="dashboard-container">
         <header>
+        @if(Auth::check())
+            <h1>Selamat Datang,<b> {{ Auth::user()->nama }}</b>!</h1>
+        @else
             <h1>Selamat Datang di Aplikasi Kami!</h1>
+        @endif
             <p>Ikuti prosedur berikut untuk memulai.</p>
         </header>
 

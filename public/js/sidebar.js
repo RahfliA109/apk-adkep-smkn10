@@ -5,19 +5,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainContent = document.querySelector('.main-content');
 
     toggleBtn.addEventListener('click', function() {
-        sidebar.classList.toggle('closed');
+        sidebar.classList.toggle('closed');  // Toggle status closed pada sidebar
         mainContent.classList.toggle('expanded');
-        toggleBtn.innerHTML = sidebar.classList.contains('closed') ? '☰' : '☰'; 
     });
 
-    // Responsive behavior
+    // Responsif behavior
     function handleResize() {
         if (window.innerWidth <= 768) {
-            sidebar.classList.add('closed');
+            sidebar.classList.add('closed');  // Sidebar otomatis tertutup pada layar kecil
             mainContent.classList.add('expanded');
-            toggleBtn.innerHTML = '☰';
         } else {
-            sidebar.classList.remove('closed');
+            sidebar.classList.remove('closed');  // Sidebar terbuka pada layar besar
             mainContent.classList.remove('expanded');
         }
     }
@@ -25,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', handleResize);
     handleResize(); // Initial check
 });
+
 
 function toggleDropdown() {
     const menu = document.getElementById('dropdownMenu');

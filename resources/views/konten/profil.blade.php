@@ -1,54 +1,82 @@
-@extends('sidebar.sidebar')
-<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+<!-- Profil Blade Template (profil.blade.php) -->
+@extends('layout.sidebar')
+
+<link rel="stylesheet" href="{{ asset('css/konten/profil.css') }}">
 
 @section('konten')
-<div class="container mx-auto py-10">
-    <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-6 text-center">Profil Pengguna</h2>
 
-        <form action="{{ route('profil.update') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <!-- Tambahkan @method('PUT') jika pakai route method PUT -->
-            
-            <div class="mb-4 text-center">
-                <img 
-                    src="{{ asset('storage/foto/' . $user->foto) }}" 
-                    alt="Foto Profil" 
-                    class="w-32 h-32 rounded-full mx-auto object-cover border"
-                >
+<div class="profile-container">
+    <div class="flex-wrapper">
+        <!-- Bagian kanan untuk gambar profil -->
+        <div class="kanan">
+            <div class="gambar">
+                <!-- Mengecek apakah pengguna sudah memiliki gambar profil -->
+                @if(auth()->user()->gambar)
+                    <img 
+                        src="{{ Storage::url(auth()->user()->gambar) }}" 
+                        alt="Profile Photo" 
+                        id="profile-photo">
+                @else
+                    <img 
+                        src="{{ asset('aset/userimage.png') }}" 
+                        alt="Profile Photo" 
+                        id="profile-photo">
+                @endif
+                
+                <!-- Input file untuk upload gambar -->
+                <input 
+                    type="file" 
+                    id="profile-image-input" 
+                    name="gambar" 
+                    style="display: none;" 
+                    accept="image/*"
+                    onchange="previewImage(event)">
             </div>
+        </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700">Nama Lengkap</label>
-                <input type="text" name="nama" value="{{ $user->nama }}" class="w-full px-4 py-2 border rounded" required>
-            </div>
+        <!-- Bagian kiri untuk form input -->
+        <div class="kiri">
+            <form action="{{ route('profil.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" name="nama" value="{{ auth()->user()->nama }}" required>
+                </div>
+                <div class="form-group">
+                    <label>NIP</label>
+                    <input type="text" name="nip" value="{{ auth()->user()->nip }}" required>
+                </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700">NIP</label>
-                <input type="text" name="nip" value="{{ $user->nip }}" class="w-full px-4 py-2 border rounded" required>
-            </div>
+                <div class="form-group">
+                    <label>Gmail</label>
+                    <input type="email" name="email" value="{{ auth()->user()->email }}" required>
+                </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700">Email</label>
-                <input type="email" name="email" value="{{ $user->email }}" class="w-full px-4 py-2 border rounded" required>
-            </div>
+                <div class="form-group">
+                    <label>No Handphone</label>
+                    <input type="text" name="no_handphone" value="{{ auth()->user()->no_handphone }}" required>
+                </div>
+                
+                <div class="form-button">
+                    <a href="{{ url()->previous() }}">
+                        <button type="button" class="btn-back">Kembali</button>
+                    </a>
 
-            <div class="mb-4">
-                <label class="block text-gray-700">Nomor HP</label>
-                <input type="text" name="nohp" value="{{ $user->nohp }}" class="w-full px-4 py-2 border rounded" required>
-            </div>
+                    <button type="submit" class="btn-update">Update Profile</button>
+                </div>
 
-            <div class="mb-6">
-                <label class="block text-gray-700">Foto Profil (opsional)</label>
-                <input type="file" name="foto" class="w-full border px-4 py-2 rounded">
-            </div>
+            </form>
 
-            <div class="text-center">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
-                    Simpan Perubahan
-                </button>
-            </div>
-        </form>
+            <!-- Form hapus akun -->
+            <form action="{{ route('profil.delete') }}" method="POST" onsubmit="return confirm('Apakah kamu yakin ingin menghapus akun ini?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn-delete">Hapus Akun</button>
+            </form>
+        </div>
     </div>
 </div>
+
+<script src="{{ asset('js/gantigambar.js') }}"></script>
+
 @endsection
