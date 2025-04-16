@@ -1,14 +1,32 @@
-    // Fungsi untuk memicu input file ketika gambar profil diklik
-    document.getElementById('profile-photo').onclick = function() {
-        document.getElementById('gambar-input').click();
-    };
+// Menangani klik gambar untuk buka input file
+document.addEventListener('DOMContentLoaded', () => {
+    const profilePhoto = document.getElementById('profile-photo');
+    const imageInput = document.getElementById('profile-image-input');
 
-    // Fungsi untuk menampilkan pratinjau gambar yang dipilih
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            // Mengubah sumber gambar menjadi pratinjau gambar yang dipilih
-            document.getElementById('profile-photo').src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
+    if (profilePhoto && imageInput) {
+        profilePhoto.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        // Preview gambar setelah dipilih
+        imageInput.addEventListener('change', event => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePhoto.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     }
+
+    // Notifikasi sukses
+    const notif = document.getElementById('notif-success');
+    if (notif) {
+        notif.classList.add('show');
+        setTimeout(() => {
+            notif.classList.remove('show');
+        }, 4000);
+    }
+});

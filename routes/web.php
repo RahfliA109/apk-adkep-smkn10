@@ -4,6 +4,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\Auth\PasswordController;
 
 
 // LOGIN
@@ -14,13 +15,16 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('profil',[MainController::class,'profil'])->name('konten.profil');
 Route::post('profil/update',[ProfilController::class,'update'])->name('profil.update');
-Route::post('profil/delete',[ProfilController::class,'delete'])->name('profil.delete');
+Route::delete('profil/delete',[ProfilController::class,'delete'])->name('profil.delete');
 
 
 Route::get('registrasi',[RegisController::class,'registrasi'])->name('auth.registrasi');
 Route::post('registrasi',[RegisController::class,'proses'])->name('register.submit');
 
-Route::get('forgotPasword',[MainController::class,'forgotPasword'])->name('auth.forgotPasword');
+Route::get('lupapw',[MainController::class,'lupapw'])->name('lupapw');
+Route::post('/cek-email', [PasswordController::class, 'cekEmail'])->name('password.check');
+Route::post('/simpan-password', [PasswordController::class, 'simpanPassword'])->name('password.save');
+
 
 // KONTEM
 Route::get('dashboard',[MainController::class,'dashboard'])->name('konten.dashboard');
@@ -30,6 +34,9 @@ Route::get('pendidikan',[MainController::class,'pendidikan'])->name('users.pendi
 Route::get('penugasan',[MainController::class,'penugasan'])->name('users.penugasan.penugasan');
 
 
-// TEST
+// PENDUKUNG
 Route::get('test',[MainController::class,'test'])->name('users.biodata.outputB');
 Route::get('test2',[MainController::class,'test2'])->name('konten.datadiri');
+Route::get('back',[MainController::class,'back'])->name('back');//backprofil
+Route::get('back2',[MainController::class,'back2'])->name('back2');//backlogin
+

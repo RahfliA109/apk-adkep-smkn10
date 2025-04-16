@@ -25,11 +25,14 @@ class LoginController extends Controller
 
         if ($users && Hash::check($request->password, $users->password)) {
             Auth::login($users);
-            return redirect()->intended('dashboard');
+
+            // Arahkan ke dashboard tanpa membedakan role
+            return redirect()->route('konten.dashboard'); // Ganti dengan route dashboard yang sesuai
         }
 
         return back()->with('error', 'NIP atau password salah');
     }
+
 
 
     public function logout()

@@ -14,10 +14,22 @@
         <button class="toggle-btn" id="toggleBtn">☰</button>
         <div class="navbar-title"></div>
         <div class="dropdown-container">
-            <div class="profile-logo" onclick="toggleDropdown()">P</div>
+        <div class="profile-logo" onclick="toggleDropdown()">
+            @if(auth()->user()->gambar)
+                <img 
+                    src="{{ asset(auth()->user()->gambar) }}" 
+                    alt="Foto Profil" 
+                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            @else
+                <img 
+                    src="{{ asset('aset/userimage.png') }}" 
+                    alt="Default Foto" 
+                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            @endif
+        </div>
             <div id="dropdownMenu" class="dropdown-menu">
                 <a href="{{route('konten.profil')}}">Profil</a>
-                <a href="/ganti-password">Ganti Password</a>
+                <a href="{{route('lupapw')}}">Ganti Password</a>
                 <form method="POST" action="{{route('logout')}}">
                     @csrf
                     <button type="submit">Log Out</button>
@@ -34,6 +46,7 @@
             </div>
         </div>
         <div class="sidebar-menu">
+            @if(auth()->user()->role == 'user')
             <div class="menu-item">
                 <a href="{{ url('dashboard') }}" class="menu-link">Dashboard</a>
             </div>
@@ -49,6 +62,16 @@
             <div class="menu-item">
                 <a href="{{ url('penugasan') }}" class="menu-link">Riwayat Penugasan</a>
             </div>
+            @endif
+
+            @if(auth()->user()->role == 'admin')
+            <div class="menu-item">
+                <a href="#" class="menu-link">Lihat Data User</a>
+            </div>
+            <div class="menu-item">
+                <a href="#" class="menu-link">Buat Akun Admin</a>
+            </div>
+            @endif
         </div>
     </aside>
 

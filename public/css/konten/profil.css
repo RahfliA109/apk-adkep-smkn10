@@ -18,12 +18,14 @@
 
 /* Bagian kiri untuk form */
 .kiri {
-    width: 60%;
+    width: 100%;
+    float: left;
 }
 
 /* Bagian kanan untuk gambar */
 .kanan {
-    width: 40%;
+    width: 100%;
+    float: right;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,6 +44,14 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+#profile-photo {
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%;
+    object-fit: cover; 
+}
+
 
 /* Input Form */
 .form-group {
@@ -69,11 +79,15 @@ label {
 /* Tombol Aksi */
 .form-button {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 20px; 
+    align-self: flex-start; 
+    justify-content: flex-start;
+    margin-left: 0; 
+    position: relative;
+    left: 55%;
 }
+
 
 .btn-back {
     background-color: grey;
@@ -106,4 +120,25 @@ label {
 .btn-update:hover,
 .btn-delete:hover {
     opacity: 0.9;
+}
+
+
+/* setingan dari notif */
+/* Notifikasi sukses */
+.notif-success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #38c172;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    font-family: sans-serif;
+}
+.notif-success.show {
+    opacity: 1;
 }

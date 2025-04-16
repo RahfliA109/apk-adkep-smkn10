@@ -14,11 +14,18 @@ class MainController extends Controller
         return view('auth.registrasi');
     }
 
-    public function forgotPasword()
+    public function lupapw()
     {
-        return view('auth.forgotPasword'); 
+        return view('auth.lupapw'); 
     }
 
+    public function back(){
+        return view('konten.dashboard');
+    }
+
+    public function back2(){
+        return view('auth.index');
+    }
 
     public function profil(){
         return view('konten.profil');

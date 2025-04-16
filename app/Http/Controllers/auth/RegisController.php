@@ -14,27 +14,29 @@ class RegisController extends Controller
     }
 
     public function proses(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'nama' => 'required|string|max:50',
-            'nip' => 'required|digits:18|unique:users,nip',
-            'email' => 'required|email|max:50|unique:users,email',
-            'no_handphone' => 'required|string|max:15',
-            'password' => 'required|string|max:50|confirmed',
-        ]);
-        
+{
+    // Validasi input
+    $request->validate([
+        'nama' => 'required|string|max:50',
+        'nip' => 'required|digits:18|unique:users,nip',
+        'email' => 'required|email|max:50|unique:users,email',
+        'no_handphone' => 'required|string|max:15',
+        'password' => 'required|string|max:50|confirmed',
+    ]);
 
-        // Simpan data user
-        $user = new Users();
-        $user->nama = $request->nama;
-        $user->nip = $request->nip;
-        $user->email = $request->email;
-        $user->no_handphone = $request->no_handphone;
-        $user->password = Hash::make($request->password);
-        $user->save();
+    // Simpan data user
+    $user = new Users();
+    $user->nama = $request->nama;
+    $user->nip = $request->nip;
+    $user->email = $request->email;
+    $user->no_handphone = $request->no_handphone;
+    $user->password = Hash::make($request->password);
+    $user->role = 'user'; // ✅ tambahkan ini
 
-        // Redirect ke login
-        return redirect()->route('auth.index')->with('success', 'Registrasi berhasil! Silakan login.');
-    }
+    $user->save();
+
+    // Redirect ke login
+    return redirect()->route('auth.index')->with('success', 'Registrasi berhasil! Silakan login.');
+}
+
 }
