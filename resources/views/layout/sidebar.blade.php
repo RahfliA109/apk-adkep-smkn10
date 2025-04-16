@@ -51,7 +51,7 @@
                 <a href="{{ url('dashboard') }}" class="menu-link">Dashboard</a>
             </div>
             <div class="menu-item">
-                <a href="{{ url('datadiri') }}" class="menu-link">Data Diri</a>
+                <a href="{{ url('biodata') }}" class="menu-link">Biodata</a>
             </div>
             <div class="menu-item">
                 <a href="{{ url('menikah') }}" class="menu-link">Riwayat Pernikahan</a>

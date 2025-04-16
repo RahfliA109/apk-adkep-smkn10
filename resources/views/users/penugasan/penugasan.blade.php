@@ -1,12 +1,9 @@
-@extends('sidebar.sidebar')
-<link rel="stylesheet" href="css/form-input.css">
-<title>biodata</title>
+@extends('layout.sidebar')
 
 @section('konten')
-
     <div class="container mx-auto py-8">
         <h2>Riwayat Penugasan</h2>
-        <form action="#" id="riwayatPenugasanForm" method="POST" action="{{ route('penugasan.store') }}" enctype="multipart/form-data">
+        <form action="{{ route('penugasan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>Nama Sekolah/Lokasi</label>

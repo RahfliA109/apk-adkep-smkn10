@@ -1,16 +1,15 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Biodata;
 
 class MainController extends Controller
 {
-    public function registrasi(){
+    public function registrasi()
+    {
         return view('auth.registrasi');
     }
 
@@ -18,6 +17,7 @@ class MainController extends Controller
     {
         return view('auth.lupapw'); 
     }
+
 
     public function back(){
         return view('konten.dashboard');
@@ -28,37 +28,59 @@ class MainController extends Controller
     }
 
     public function profil(){
+    
         return view('konten.profil');
     }
 
-
-    public function test(){
+    public function test()
+    {
         return view('users.biodata.outputB');
     }
 
-    public function test2(){
+    public function test2()
+    {
         return view('konten.datadiri');
     }
 
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('konten.dashboard');
     }
 
-    public function datadiri(){
+    public function biodata()
+    {
+        $user = Auth::user();
+        $biodata = Biodata::where('email', $user->email)->first();
+
+        if ($biodata) {
+            // Redirect ke output jika sudah mengisi biodata
+            return redirect()->route('biodata.output')->with('info', 'Anda sudah mengisi biodata.');
+        }
+
+        // Tampilkan form input biodata
         return view('users.biodata.biodata');
     }
 
-    public function menikah(){
+    public function menikah()
+    {
+        $user = Auth::user();
+        $data = \App\Models\RiwayatMenikah::where('user_id', $user->id)->first();
+    
+        if ($data) {
+            return redirect()->route('riwayatMenikah.index')->with('info', 'Anda sudah mengisi data riwayat menikah.');
+        }
+    
         return view('users.menikah.menikah');
     }
+    
 
-    public function penugasan(){
+    public function penugasan()
+    {
         return view('users.penugasan.penugasan');
     }
 
-    public function pendidikan(){
+    public function pendidikan()
+    {
         return view('users.pendidikan.pendidikan');
     }
-
-
 }

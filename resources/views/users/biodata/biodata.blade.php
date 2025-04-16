@@ -1,11 +1,14 @@
 @extends('layout.sidebar')
-<link rel="stylesheet" href="{{ asset('css/form-input.css') }}">
+
 <title>Biodata</title>
 
 @section('konten')
+<link rel="stylesheet" href="{{ asset('css/form-input.css') }}">
+
     <div class="container mx-auto py-8">
         <h2>Biodata Diri</h2>
-        <form action="#" method="POST" id="biodataForm" enctype="multipart/form-data">
+        <form action="{{ route('biodata.store') }}" method="POST" enctype="multipart/form-data">
+
             @csrf
             <!-- Data Pribadi -->
             <div class="form-group">
