@@ -1,64 +1,137 @@
-@extends('sidebar.sidebar')
-<link rel="stylesheet" href="{{ asset('css/form-input.css') }}">
-<title>Riwayat Menikah</title>
-
+@extends('layout.sidebar')
 @section('konten')
-<div class="container mx-auto py-8">
-    <h2>Form Riwayat Menikah</h2>
+<style>
+    .kotak {
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        max-width: 900px;
+        margin: 30px auto;
+    }
 
-    {{-- Notifikasi sukses --}}
-    @if(session('success'))
-        <div class="alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    .judul h1 {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 30px;
+        font-weight: bold;
+        color: #333;
+    }
 
-    {{-- Form input --}}
-    <form action="{{ route('menikah.store') }}" method="POST" enctype="multipart/form-data">
+    .alert {
+        margin-bottom: 20px;
+    }
+
+    .blok {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .kiri {
+        flex: 1;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .kiri img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+    }
+
+    .kanan {
+        flex: 2;
+        padding-left: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th {
+        text-align: left;
+        width: 150px;
+        padding: 8px 0;
+        color: #555;
+    }
+
+    table td {
+        padding: 8px 0;
+        color: #333;
+    }
+
+    .aksi {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .aksi a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
+
+    .aksi .btn-edit {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .aksi .btn-edit:hover {
+        background-color: #2980b9;
+    }
+
+    .aksi .btn-hapus {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .aksi .btn-hapus:hover {
+        background-color: #c0392b;
+    }
+
+    @media (max-width: 768px) {
+        .blok {
+            flex-direction: column;
+        }
+
+        .kanan {
+            padding-left: 0;
+        }
+
+        .kiri {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+<div class="kotak">
+    <h2>Data Riwayat Menikah</h2>
+    @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
+    <table>
+        <tr><th>Status</th><td>{{ $data->status_perkawinan }}</td></tr>
+        <tr><th>Tanggal</th><td>{{ $data->tanggal_menikah_cerai }}</td></tr>
+        <tr><th>Nama Pasangan</th><td>{{ $data->nama_pasangan }}</td></tr>
+        <tr><th>Pekerjaan Pasangan</th><td>{{ $data->pekerjaan_pasangan }}</td></tr>
+        <tr><th>Jumlah Anak</th><td>{{ $data->jumlah_anak }}</td></tr>
+        <tr><th>Akta</th><td>
+            @if($data->akta_nikah)
+                <a href="{{ asset('storage/' . $data->akta_nikah) }}" target="_blank">Lihat Dokumen</a>
+            @else
+                Tidak ada file
+            @endif
+        </td></tr>
+    </table>
+    <br>
+    <a href="{{ route('riwayatMenikah.edit') }}" class="btn btn-warning">Edit</a>
+    <form action="{{ route('riwayatMenikah.destroy') }}" method="POST" style="display:inline;">
         @csrf
-
-        <!-- Status Perkawinan -->
-        <div class="form-group">
-            <label>Status Perkawinan <span class="text-red-500">*</span></label>
-            <select name="status_perkawinan" required>
-                <option value="">-- Pilih Status --</option>
-                <option value="Kawin">Kawin</option>
-                <option value="Belum Kawin">Belum Kawin</option>
-                <option value="Duda">Duda</option>
-                <option value="Janda">Janda</option>
-            </select>
-        </div>
-
-        <!-- Tanggal Menikah/Cerai -->
-        <div class="form-group">
-            <label>Tanggal Menikah/Cerai</label>
-            <input type="date" name="tanggal_menikah_cerai">
-        </div>
-
-        <!-- Data Pasangan -->
-        <div class="form-group">
-            <label>Nama Pasangan</label>
-            <input type="text" name="nama_pasangan">
-        </div>
-
-        <div class="form-group">
-            <label>Pekerjaan Pasangan</label>
-            <input type="text" name="pekerjaan_pasangan">
-        </div>
-
-        <div class="form-group">
-            <label>Jumlah Anak</label>
-            <input type="number" name="jumlah_anak" min="0" value="0">
-        </div>
-
-        <!-- Dokumen -->
-        <div class="form-group">
-            <label>Akta Nikah/Cerai (PDF/JPG/JPEG, maks 2MB)</label>
-            <input type="file" name="akta_nikah" accept=".pdf,.jpg,.jpeg">
-        </div>
-
-        <button type="submit" class="btn-submit">Simpan Data</button>
-        <a href="{{ url()->previous() ?? url('dashboard') }}" class="btn-cancel">Kembali</a>
+        <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-danger">Hapus</button>
     </form>
 </div>
 @endsection

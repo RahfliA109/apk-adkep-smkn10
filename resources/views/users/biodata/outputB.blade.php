@@ -1,169 +1,176 @@
 @extends('layout.sidebar')
 
+@section('konten')
 <style>
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
+    .kotak {
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        max-width: 900px;
+        margin: 30px auto;
+    }
 
-body {
-	font-family: monospace;
-	font-size: 13pt;
-	background-color: #2c3e50; /* warna senada sidebar/nav */
-	color: black; /* warna teks cerah */
-}
+    .judul h1 {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 30px;
+        font-weight: bold;
+        color: #333;
+    }
 
-.konten {
-	width: calc(100% - 250px);
-	margin-left: 250px;
-	margin-top: 60px;
-	padding: 20px;
-	min-height: calc(100vh - 60px);
-}
+    .alert {
+        margin-bottom: 20px;
+    }
 
-.kotak {
-	background: white; /* warna abu gelap */
-	border: none;
-	width: 100%;
-	max-width: 1000px;
-	margin: auto;
-	padding: 20px;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-	border-radius: 10px;
-}
+    .blok {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
-.judul {
-	text-align: center;
-	background: #f1c40f; /* kuning seperti sebelumnya */
-	padding: 10px;
-	margin-bottom: 20px;
-	color: #000;
-	border-radius: 5px;
-}
+    .kiri {
+        flex: 1;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-img {
-	width: 200px;
-	height: auto;
-	margin-bottom: 10px;
-	border-radius: 5px;
-}
+    .kiri img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+    }
 
-.blok {
-	margin-bottom: 20px;
-}
+    .kanan {
+        flex: 2;
+        padding-left: 20px;
+    }
 
-.kiri {
-	width: 100%;
-	float: left;
-}
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-.kanan {
-	width: 100%;
-	float: left;
-	padding: 0px 20px;
-}
+    table th {
+        text-align: left;
+        width: 150px;
+        padding: 8px 0;
+        color: #555;
+    }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
+    table td {
+        padding: 8px 0;
+        color: #333;
+    }
 
-th, td {
-	text-align: left;
-	padding: 8px;
-	color: black;
-}
+    .aksi {
+        margin-top: 30px;
+        text-align: center;
+    }
 
-a {
-	color: #1abc9c;
-	text-decoration: none;
-}
+    .aksi a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
 
-a:hover {
-	text-decoration: underline;
-}
+    .aksi .btn-edit {
+        background-color: #3498db;
+        color: white;
+    }
 
-ul {
-	padding-left: 20px;
-}
+    .aksi .btn-edit:hover {
+        background-color: #2980b9;
+    }
 
-@media only screen and (max-width: 768px) {
-	.konten {
-		margin-left: 0;
-		width: 100%;
-		padding: 10px;
-	}
+    .aksi .btn-hapus {
+        background-color: #e74c3c;
+        color: white;
+    }
 
-	.kotak {
-		width: 100%;
-		padding: 10px;
-	}
+    .aksi .btn-hapus:hover {
+        background-color: #c0392b;
+    }
 
-	.kiri,
-	.kanan {
-		width: 100%;
-		float: none;
-		padding: 0;
-	}
-}
+    @media (max-width: 768px) {
+        .blok {
+            flex-direction: column;
+        }
+
+        .kanan {
+            padding-left: 0;
+        }
+
+        .kiri {
+            margin-bottom: 20px;
+        }
+    }
 </style>
 
-@section('konten')
 <div class="kotak">
-	<div class="judul">
-		<h1>BIODATA DIRI</h1>
-	</div>
+    <div class="judul">
+        <h1>BIODATA DIRI</h1>
+    </div>
 
-	<div class="blok">
-		<h2>Informasi</h2>
-		<div class="kiri">
-			<img src="aset/userimage.png">
-		</div>
-		<div class="kanan">
-			<table>
-				<tr><th>Nama</th><th>:</th><td>Santono Sujatmiko</td></tr>
-				<tr><th>Tempat</th><th>:</th><td>Medan</td></tr>
-				<tr><th>Tgl.Lahir</th><th>:</th><td>15 September 1994</td></tr>
-				<tr><th>Agama</th><th>:</th><td>Islam</td></tr>
-				<tr><th>Alamat</th><th>:</th><td>Jl. Merpati Putih, No. 187, Blok - Cimahi, Bandung</td></tr>
-				<tr><th>Email</th><th>:</th><td>santono@malasngoding.com</td></tr>
-				<tr><th>No.HP</th><th>:</th><td>+62812-3456-7890</td></tr>
-				<tr><th>Website</th><th>:</th><td><a href="https://www.malasngoding.com">www.malasngoding.com</a></td></tr>
-			</table>
-		</div>
-		<div style="clear: both;"></div>
-	</div>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
-	<div class="blok">
-		<h2>Pendidikan</h2>
-		<ul>
-			<li><b>2000 - 2006</b> SD 1 Negeri Medan</li>
-			<li><b>2006 - 2009</b> SMP 1 Negeri Jakarta</li>
-			<li><b>2009 - 2012</b> SMA 1 Negeri Jakarta</li>
-			<li><b>2012 - 2016</b> Universitas Indonesia</li>
-		</ul>
-	</div>
+    @if(isset($biodata))
+        <div class="blok">
+            <div class="kiri">
+                <img src="{{ asset('storage/' . $biodata->foto) }}" alt="Foto Profil">
+            </div>
+            <div class="kanan">
+                <table>
+                    <tr><th>Nama</th><td>{{ $biodata->nama }}</td></tr>
+                    <tr><th>Tempat Lahir</th><td>{{ $biodata->tempat_lahir }}</td></tr>
+                    <tr><th>Tanggal Lahir</th><td>{{ \Carbon\Carbon::parse($biodata->tanggal_lahir)->format('d M Y') }}</td></tr>
+                    <tr><th>Jenis Kelamin</th><td>{{ $biodata->jenis_kelamin }}</td></tr>
+                    <tr><th>Agama</th><td>{{ $biodata->agama }}</td></tr>
+                    <tr><th>Status Kawin</th><td>{{ $biodata->status_kawin }}</td></tr>
+                    <tr><th>Alamat</th><td>{{ $biodata->alamat_ktp }}</td></tr>
+                    <tr><th>No. HP</th><td>{{ $biodata->no_hp }}</td></tr>
+                    <tr><th>Email</th><td>{{ $biodata->email }}</td></tr>
+                    <tr>
+                        <th>Scan KTP</th>
+                        <td>
+                            @if($biodata->scan_ktp)
+                                <a href="{{ asset('storage/' . $biodata->scan_ktp) }}" target="_blank">Lihat Scan KTP</a>
+                            @else
+                                Tidak ada scan KTP
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
-	<div class="blok">
-		<h2>Pengalaman Kerja</h2>
-		<ul>
-			<li><b>2017 - 2019</b> - <i>Back-End Developer</i> - di PT. Teknologi Indonesia</li>
-			<li><b>2020 - Now</b> - <i>Full Stack Developer</i> - di PT. BOX Tech AI Indonesia</li>
-		</ul>
-	</div>
+        <div class="aksi">
+            <a href="{{ route('biodata.edit', $biodata->id) }}" class="btn-edit">Edit</a>
 
-	<div class="blok">
-		<h2>Keahlian</h2>
-		<ul>
-			<li>HTML</li>
-			<li>CSS</li>
-			<li>JavaScript</li>
-			<li>PHP</li>
-			<li>CodeIgniter</li>
-			<li>Laravel</li>
-			<li>NodeJS</li>
-		</ul>
-	</div>
+            <form action="{{ route('biodata.destroy', $biodata->id) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus biodata ini?')">Hapus</button>
+            </form>
+        </div>
+
+    @elseif(isset($message))
+        <div class="alert alert-warning">
+            {{ $message }}
+        </div>
+    @endif
 </div>
 @endsection

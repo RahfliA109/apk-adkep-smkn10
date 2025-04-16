@@ -14,7 +14,8 @@
     @endif
 
     {{-- Form input --}}
-    <form action="#" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('riwayatMenikah.store') }}" method="POST" enctype="multipart/form-data">
+
         @csrf
 
         <!-- Status Perkawinan -->
