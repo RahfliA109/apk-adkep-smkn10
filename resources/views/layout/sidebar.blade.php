@@ -13,23 +13,39 @@
     <nav class="navbar">
         <button class="toggle-btn" id="toggleBtn">☰</button>
         <div class="navbar-title"></div>
+
+        {{-- Menetapkan variabel view --}}
+        @php
+            $isSeeUserPage = true;
+        @endphp
+
+        {{-- Menampilkan search bar hanya jika variabel $showSearchBar diset dan bernilai true --}}
+        @if(auth()->user()->role == 'admin' && isset($showSearchBar) && $showSearchBar)
+            <div class="navbar-search">
+                <form action="{{ route('users.search') }}" method="GET">
+                    <input type="text" name="keyword" placeholder="Cari nama user..." id="searchInput" value="{{ $keyword ?? '' }}">
+                    <button type="submit" id="searchBtn">🔍</button>
+                </form>
+            </div>
+        @endif
+
         <div class="dropdown-container">
-        <div class="profile-logo" onclick="toggleDropdown()">
-            @if(auth()->user()->gambar)
-                <img 
-                    src="{{ asset(auth()->user()->gambar) }}" 
-                    alt="Foto Profil" 
-                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            @else
-                <img 
-                    src="{{ asset('aset/userimage.png') }}" 
-                    alt="Default Foto" 
-                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            @endif
-        </div>
+            <div class="profile-logo" onclick="toggleDropdown()">
+                @if(auth()->user()->gambar)
+                    <img 
+                        src="{{ asset(auth()->user()->gambar) }}" 
+                        alt="Foto Profil" 
+                        style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                @else
+                    <img 
+                        src="{{ asset('aset/userimage.png') }}" 
+                        alt="Default Foto" 
+                        style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                @endif
+            </div>
             <div id="dropdownMenu" class="dropdown-menu">
                 <a href="{{route('konten.profil')}}">Profil</a>
-                <a href="{{route('lupapw')}}">Ganti Password</a>
+                <a href="{{route('lupapw2')}}">Ganti Password</a>
                 <form method="POST" action="{{route('logout')}}">
                     @csrf
                     <button type="submit">Log Out</button>
@@ -46,31 +62,31 @@
             </div>
         </div>
         <div class="sidebar-menu">
+                <div class="menu-item">
+                    <a href="{{ url('dashboard') }}" class="menu-link">Dashboard</a>
+                </div>
             @if(auth()->user()->role == 'user')
-            <div class="menu-item">
-                <a href="{{ url('dashboard') }}" class="menu-link">Dashboard</a>
-            </div>
-            <div class="menu-item">
-                <a href="{{ url('biodata') }}" class="menu-link">Biodata</a>
-            </div>
-            <div class="menu-item">
-                <a href="{{ url('menikah') }}" class="menu-link">Riwayat Pernikahan</a>
-            </div>
-            <div class="menu-item">
-                <a href="{{ url('pendidikan') }}" class="menu-link">Riwayat Pendidikan</a>
-            </div>
-            <div class="menu-item">
-                <a href="{{ url('penugasan') }}" class="menu-link">Riwayat Penugasan</a>
-            </div>
+                <div class="menu-item">
+                    <a href="{{ url('biodata') }}" class="menu-link">Biodata</a>
+                </div>
+                <div class="menu-item">
+                    <a href="{{ url('menikah') }}" class="menu-link">Riwayat Pernikahan</a>
+                </div>
+                <div class="menu-item">
+                    <a href="{{ url('pendidikan') }}" class="menu-link">Riwayat Pendidikan</a>
+                </div>
+                <div class="menu-item">
+                    <a href="{{ url('penugasan') }}" class="menu-link">Riwayat Penugasan</a>
+                </div>
             @endif
 
             @if(auth()->user()->role == 'admin')
-            <div class="menu-item">
-                <a href="#" class="menu-link">Lihat Data User</a>
-            </div>
-            <div class="menu-item">
-                <a href="#" class="menu-link">Buat Akun Admin</a>
-            </div>
+                <div class="menu-item">
+                    <a href="{{route('seeuser')}}" class="menu-link">Lihat Data User</a>
+                </div>
+                <div class="menu-item">
+                    <a href="{{route('createakun')}}" class="menu-link">Buat Akun Admin</a>
+                </div>
             @endif
         </div>
     </aside>

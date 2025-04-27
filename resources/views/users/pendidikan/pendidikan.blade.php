@@ -1,5 +1,5 @@
 @extends('layout.sidebar')
-<link rel="stylesheet" href="{{ asset('css/form-input.css') }}">
+<link rel="stylesheet" href="{{ asset('css/konten/form-input.css') }}">
 <title>Riwayat Pendidikan</title>
 
 @section('konten')

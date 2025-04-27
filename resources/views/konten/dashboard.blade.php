@@ -2,14 +2,14 @@
 <link rel="stylesheet" href="css/konten/dashboard.css">
 
 @section('konten')
-    <div class="container mx-auto py-8">
+<div class="dashboard-page"> {{-- Tambahkan wrapper ini agar CSS scoped bekerja --}}
     <div class="dashboard-container">
         <header>
-        @if(Auth::check())
-            <h1>Selamat Datang,<b> {{ Auth::user()->nama }}</b>!</h1>
-        @else
-            <h1>Selamat Datang di Aplikasi Kami!</h1>
-        @endif
+            @if(Auth::check())
+                <h1>Selamat Datang, <b>{{ Auth::user()->nama }}</b>!</h1>
+            @else
+                <h1>Selamat Datang di Aplikasi Kami!</h1>
+            @endif
             <p>Ikuti prosedur berikut untuk memulai.</p>
         </header>
 
@@ -36,32 +36,10 @@
                     <li>Pastikan file Anda dalam format yang didukung (PDF, JPG, DOCX, dll.)</li>
                     <li>Unggah file yang diperlukan</li>
                 </ul>
-            </div>
+            </div>          
 
             <div class="step">
                 <div class="step-number">3</div>
-                <h2>Mulai Penggunaan Fitur Utama Aplikasi</h2>
-                <p>Setelah profil Anda lengkap dan data siap, Anda bisa langsung menggunakan fitur-fitur utama aplikasi.</p>
-                <p><strong>Cara Mengakses Fitur Utama:</strong></p>
-                <ul>
-                    <li>Pilih menu <strong>Fitur Utama</strong> dari sidebar</li>
-                    <li>Ikuti langkah-langkah yang tertera di setiap halaman fitur</li>
-                </ul>
-            </div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <h2>Cek Pembaruan dan Notifikasi</h2>
-                <p>Pastikan Anda selalu memperbarui informasi terkait aplikasi dan cek pembaruan terbaru atau notifikasi penting.</p>
-                <p><strong>Cara Cek Notifikasi:</strong></p>
-                <ul>
-                    <li>Klik ikon <strong>Notifikasi</strong> di sudut kanan atas</li>
-                    <li>Periksa pembaruan terbaru atau pesan penting</li>
-                </ul>
-            </div>
-
-            <div class="step">
-                <div class="step-number">5</div>
                 <h2>Hubungi Dukungan</h2>
                 <p>Jika Anda menemui kendala atau membutuhkan bantuan lebih lanjut, tim dukungan kami siap membantu.</p>
                 <p><strong>Cara Menghubungi Dukungan:</strong></p>
@@ -71,6 +49,6 @@
                 </ul>
             </div>
         </div>
-    </div>        
     </div>
+</div>
 @endsection

@@ -30,13 +30,17 @@ class RegisController extends Controller
     $user->nip = $request->nip;
     $user->email = $request->email;
     $user->no_handphone = $request->no_handphone;
-    $user->password = Hash::make($request->password);
-    $user->role = 'user'; // ✅ tambahkan ini
+    
+    // Hash password sebelum disimpan ke database
+    $user->password = Hash::make($request->password); // Gunakan Hash::make untuk meng-hash password
+
+    $user->role = 'user'; 
 
     $user->save();
 
     // Redirect ke login
     return redirect()->route('auth.index')->with('success', 'Registrasi berhasil! Silakan login.');
 }
+
 
 }

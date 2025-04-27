@@ -20,4 +20,9 @@ class RiwayatPendidikan extends Model
         'ijazah',
         'sertifikat_pelatihan',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

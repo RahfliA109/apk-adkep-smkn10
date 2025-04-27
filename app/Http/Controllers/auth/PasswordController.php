@@ -26,23 +26,28 @@ class PasswordController extends Controller
 
     // Langkah 2: Simpan password baru
     public function simpanPassword(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|min:6|confirmed',
-        ]);
+{
+    // Validasi input
+    $request->validate([
+        'email' => 'required|email|exists:users,email',
+        'password' => 'required|min:6|confirmed',
+    ]);
 
-        // Cari user berdasarkan email
-        $user = Users::where('email', $request->email)->first();
+    // Cari user berdasarkan email
+    $user = Users::where('email', $request->email)->first();
 
-        // Update password
-        $user->password = \Hash::make($request->password);
-        $user->save();
+    // Update password
+    $user->password = \Hash::make($request->password);
+    $user->save();
 
-        // Mengarahkan kembali ke halaman sebelumnya
-        return redirect()->to(url()->previous())->with('success', 'Password berhasil diubah.');
+    // Periksa session dan arahkan kembali ke halaman yang sesuai
+    if ($request->session()->get('from') == 'login') {
+        return redirect()->route('auth.index')->with('success', 'Password berhasil diubah. Silakan login.');
     }
+
+    return redirect()->route('konten.dashboard')->with('success', 'Password berhasil diubah. Silakan login.');
+}
+
 
 
 }

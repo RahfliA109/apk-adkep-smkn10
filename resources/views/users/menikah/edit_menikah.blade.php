@@ -1,10 +1,15 @@
 @extends('layout.sidebar')
+
 <link rel="stylesheet" href="{{ asset('css/konten/form-input.css') }}">
 <title>Edit Riwayat Menikah</title>
 
 @section('konten')
+<body class="edit-page">
+<div class="kotak">
 <div class="container mx-auto py-8">
+    <div class="judul">
     <h2>Edit Riwayat Menikah</h2>
+    </div>
 
     {{-- Notifikasi sukses --}}
     @if(session('success'))
@@ -20,54 +25,53 @@
         </div>
     @endif
 
-    <form action="{{ route('riwayatMenikah.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('riwayatMenikah.update', $riwayatMenikah->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <!-- Status Perkawinan -->
         <div class="form-group">
-            <label>Status Perkawinan <span class="text-red-500">*</span></label>
-            <select name="status_perkawinan" required>
-                <option value="">-- Pilih Status --</option>
-                <option value="Kawin" {{ $data->status_perkawinan == 'Kawin' ? 'selected' : '' }}>Kawin</option>
-                <option value="Belum Kawin" {{ $data->status_perkawinan == 'Belum Kawin' ? 'selected' : '' }}>Belum Kawin</option>
-                <option value="Duda" {{ $data->status_perkawinan == 'Duda' ? 'selected' : '' }}>Duda</option>
-                <option value="Janda" {{ $data->status_perkawinan == 'Janda' ? 'selected' : '' }}>Janda</option>
-            </select>
+        <label>Tanggal Menikah/Cerai</label>
+        <input type="text" name="status_perkawinan" value="{{ $riwayatMenikah->status_perkawinan }}">
         </div>
 
         <!-- Tanggal Menikah/Cerai -->
         <div class="form-group">
             <label>Tanggal Menikah/Cerai</label>
-            <input type="date" name="tanggal_menikah_cerai" value="{{ $data->tanggal_menikah_cerai }}">
+            <input type="date" name="tanggal_menikah_cerai" value="{{ $riwayatMenikah->tanggal_menikah_cerai }}">
         </div>
 
         <!-- Data Pasangan -->
         <div class="form-group">
             <label>Nama Pasangan</label>
-            <input type="text" name="nama_pasangan" value="{{ $data->nama_pasangan }}">
+            <input type="text" name="nama_pasangan" value="{{ $riwayatMenikah->nama_pasangan }}">
         </div>
 
         <div class="form-group">
             <label>Pekerjaan Pasangan</label>
-            <input type="text" name="pekerjaan_pasangan" value="{{ $data->pekerjaan_pasangan }}">
+            <input type="text" name="pekerjaan_pasangan" value="{{ $riwayatMenikah->pekerjaan_pasangan }}">
         </div>
 
         <div class="form-group">
             <label>Jumlah Anak</label>
-            <input type="number" name="jumlah_anak" min="0" value="{{ $data->jumlah_anak }}">
+            <input type="number" name="jumlah_anak" min="0" value="{{ $riwayatMenikah->jumlah_anak }}">
         </div>
 
         <!-- Dokumen -->
         <div class="form-group">
             <label>Akta Nikah/Cerai (PDF/JPG/JPEG, maks 2MB)</label>
             <input type="file" name="akta_nikah" accept=".pdf,.jpg,.jpeg">
-            @if($data->akta_nikah)
-                <p>File sebelumnya: <a href="{{ asset('storage/'.$data->akta_nikah) }}" target="_blank">Lihat File</a></p>
+            @if($riwayatMenikah->akta_nikah)
+                <p>File sebelumnya: <a href="{{ asset('storage/'.$riwayatMenikah->akta_nikah) }}" target="_blank">Lihat File</a></p>
             @endif
         </div>
 
-        <button type="submit" class="btn-submit">Update Data</button>
-        <a href="{{ route('riwayatMenikah.index') }}" class="btn-cancel">Kembali</a>
+        <div class="form-actions">
+            <button type="submit">Simpan Perubahan</button>
+            <a href="{{ url()->previous() }}" class="tombol">Batal</a>
+        </div>
     </form>
 </div>
+</div>
+</body>
 @endsection

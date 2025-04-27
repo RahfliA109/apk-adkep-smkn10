@@ -1,74 +1,12 @@
 @extends('layout.sidebar')
+<link rel="stylesheet" href="{{ asset('css/konten/form-input.css') }}">
 
 @section('konten')
-<style>
-    .form-container {
-        max-width: 800px;
-        margin: 30px auto;
-        background: #fff;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .form-container h2 {
-        text-align: center;
-        margin-bottom: 25px;
-        color: #2c3e50;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .form-group input, .form-group select, .form-group textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-    }
-
-    .form-group img {
-        width: 150px;
-        height: auto;
-        margin-top: 10px;
-        border-radius: 8px;
-    }
-
-    .form-actions {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .form-actions button {
-        padding: 10px 30px;
-        font-weight: bold;
-        border: none;
-        border-radius: 8px;
-        background-color: #27ae60;
-        color: white;
-        cursor: pointer;
-    }
-
-    .form-actions a {
-        margin-left: 15px;
-        color: #e74c3c;
-        text-decoration: none;
-    }
-
-    .form-actions button:hover {
-        background-color: #219150;
-    }
-</style>
-
+<body class="edit-page">
 <div class="form-container">
+    <div class="judul">
     <h2>Edit Biodata</h2>
+    </div>
 
     <form action="{{ route('biodata.update', $biodata->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -145,8 +83,10 @@
 
         <div class="form-actions">
             <button type="submit">Simpan Perubahan</button>
-            <a href="{{ url()->previous() }}">Batal</a>
+            <a href="{{ url()->previous() }}" class="tombol">Batal</a>
         </div>
     </form>
 </div>
+</div>
+</body>
 @endsection

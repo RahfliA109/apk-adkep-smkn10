@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Biodata;
+use App\Models\RiwayatMenikah;
+
 
 class MainController extends Controller
 {
@@ -13,9 +15,20 @@ class MainController extends Controller
         return view('auth.registrasi');
     }
 
-    public function lupapw()
+    public function lupapw(Request $request)
     {
-        return view('auth.lupapw'); 
+        // Simpan session untuk menandakan ini halaman lupa password login
+        $request->session()->put('from', 'login');
+    
+        return view('auth.lupapw'); // Tampilkan halaman lupa password untuk login
+    }
+
+    public function lupapw2(Request $request)
+    {
+        // Simpan session untuk menandakan ini halaman lupa password profil
+        $request->session()->put('from', 'profil');
+        
+        return view('auth.lupapw2'); // Tampilkan halaman lupa password untuk profil
     }
 
 
@@ -61,18 +74,21 @@ class MainController extends Controller
         return view('users.biodata.biodata');
     }
 
-    public function menikah()
-    {
-        $user = Auth::user();
-        $data = \App\Models\RiwayatMenikah::where('user_id', $user->id)->first();
+    public function menikah() 
+{
+    $user = Auth::user();
+    // Ambil data riwayat menikah hanya untuk user yang sedang login
+    $riwayatMenikah = RiwayatMenikah::where('user_id', auth()->id())->first();
     
-        if ($data) {
-            return redirect()->route('riwayatMenikah.index')->with('info', 'Anda sudah mengisi data riwayat menikah.');
-        }
-    
-        return view('users.menikah.menikah');
+    // Jika user sudah memiliki data
+    if ($riwayatMenikah) {
+        // Arahkan ke halaman output
+        return redirect()->route('riwayatMenikah.output',compact('riwayatMenikah'));
     }
     
+    // Jika user belum memiliki data, arahkan ke form input
+    return redirect()->route('riwayatMenikah.create');
+}
 
     public function penugasan()
     {

@@ -1,4 +1,5 @@
 @extends('layout.sidebar')
+<link rel="stylesheet" href="{{ asset('css/layout/previuw') }}">
 
 @section('konten')
 <style>
@@ -21,6 +22,8 @@
 
     .alert {
         margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 5px;
     }
 
     .blok {
@@ -34,12 +37,19 @@
         margin-bottom: 20px;
     }
 
+    /* Gambar Profil - Bulat dengan Border */
     .kiri img {
         width: 200px;
         height: 200px;
         object-fit: cover;
-        border-radius: 10px;
-        border: 2px solid #ddd;
+        border-radius: 50%; /* Membuat gambar menjadi bulat */
+        border: 4px solid none; /* Border biru */
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Bayangan yang lebih tebal */
+        transition: transform 0.3s ease; /* Transisi saat hover */
+    }
+
+    .kiri img:hover {
+        transform: scale(1.05); /* Zoom in sedikit saat hover */
     }
 
     .kanan {
@@ -73,6 +83,15 @@
         display: inline-block;
         margin: 0 10px;
         padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
+
+    .button{
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
         font-weight: bold;
         text-decoration: none;
         border-radius: 8px;
@@ -88,9 +107,16 @@
         background-color: #2980b9;
     }
 
-    .aksi .btn-hapus {
+    .btn-hapus {
         background-color: #e74c3c;
         color: white;
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
+        border:none;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s;
     }
 
     .aksi .btn-hapus:hover {
@@ -116,22 +142,21 @@
     <div class="judul">
         <h1>BIODATA DIRI</h1>
     </div>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @elseif(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
+    
     @if(isset($biodata))
         <div class="blok">
             <div class="kiri">
-                <img src="{{ asset('storage/' . $biodata->foto) }}" alt="Foto Profil">
+                @if(auth()->user()->gambar)
+                    <img 
+                        src="{{ asset(auth()->user()->gambar) }}" 
+                        alt="Foto Profil">
+                @else
+                    <img 
+                        src="{{ asset('aset/userimage.png') }}" 
+                        alt="Default Foto">
+                @endif
             </div>
+
             <div class="kanan">
                 <table>
                     <tr><th>Nama</th><td>{{ $biodata->nama }}</td></tr>
@@ -144,10 +169,37 @@
                     <tr><th>No. HP</th><td>{{ $biodata->no_hp }}</td></tr>
                     <tr><th>Email</th><td>{{ $biodata->email }}</td></tr>
                     <tr>
+                        <th>Foto</th>
+                        <td>
+                            @if($biodata->foto)
+                                <a href="{{ asset($biodata->foto) }}" target="_blank">
+                                    @if(Str::endsWith($biodata->foto, ['.jpg', '.jpeg', '.png', '.webp']))
+                                        <img src="{{ asset($biodata->foto) }}" width="100" class="img-preview">
+                                    @else
+                                        Lihat Foto
+                                    @endif
+                                </a>
+                            @else
+                                Tidak ada Foto
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
                         <th>Scan KTP</th>
                         <td>
                             @if($biodata->scan_ktp)
-                                <a href="{{ asset('storage/' . $biodata->scan_ktp) }}" target="_blank">Lihat Scan KTP</a>
+                                <a href="{{ asset($biodata->scan_ktp) }}" target="_blank">
+                                    @if(Str::endsWith($biodata->scan_ktp, ['.jpg', '.jpeg', '.png', '.webp']))
+                                        <img src="{{ asset($biodata->scan_ktp) }}" width="100" class="img-preview">
+                                    @elseif(Str::endsWith($biodata->scan_ktp, '.pdf'))
+                                        Lihat KTP
+                                    @elseif(Str::endsWith($biodata->scan_ktp, ['.doc', '.docx']))
+                                        Download KTP
+                                    @else
+                                        Download KTP
+                                    @endif
+                                </a>
                             @else
                                 Tidak ada scan KTP
                             @endif

@@ -3,25 +3,24 @@
 <title>Biodata</title>
 
 @section('konten')
-<link rel="stylesheet" href="{{ asset('css/form-input.css') }}">
+<link rel="stylesheet" href="{{ asset('css/konten/form-input.css') }}">
 
     <div class="container mx-auto py-8">
         <h2>Biodata Diri</h2>
         <form action="{{ route('biodata.store') }}" method="POST" enctype="multipart/form-data">
-
             @csrf
             <!-- Data Pribadi -->
             <div class="form-group">
                 <label>Nama Lengkap (Sesuai KTP)</label>
-                <input type="text" name="nama" required>
+                <input type="text" name="nama" required maxlength="50">
             </div>
             <div class="form-group">
                 <label>NIK</label>
-                <input type="text" name="nik" required>
+                <input type="text" name="nik" required maxlength="16">
             </div>
             <div class="form-group">
-                <label>NUPTK/NIP</label>
-                <input type="text" name="nuptk_nip" required>
+                <label>NIP</label>
+                <input type="text" name="nip" required maxlength="18">
             </div>
             <div class="form-group">
                 <label>Tempat, Tanggal Lahir</label>
@@ -55,21 +54,22 @@
             </div>
             <div class="form-group">
                 <label>Nomor Telepon/HP</label>
-                <input type="tel" name="no_hp" required>
+                <input type="tel" name="no_hp" required maxlength="16">
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email" value="{{ Auth::user()->email }}" readonly>
             </div>
 
             <!-- Dokumen -->
             <div class="form-group">
-                <label>Upload Foto (Format: JPG, Max 2MB)</label>
-                <input type="file" name="foto" accept="image/jpeg">
+                <label>Upload Foto (Format: JPG, PNG, JPEG, WEBP, PDF, DOCX - Max 5MB)</label>
+                <input type="file" name="foto" accept=".jpg, .jpeg, .png, .webp, .pdf, .doc, .docx">
             </div>
+
             <div class="form-group">
-                <label>Upload Scan KTP</label>
-                <input type="file" name="scan_ktp" accept="application/pdf, image/*">
+                <label>Upload KTP (Format: JPG, PNG, JPEG, WEBP, PDF, DOCX - Max 5MB)</label>
+                <input type="file" name="scan_ktp" accept=".jpg, .jpeg, .png, .webp, .pdf, .doc, .docx">
             </div>
 
             <button type="submit">Simpan Biodata</button>

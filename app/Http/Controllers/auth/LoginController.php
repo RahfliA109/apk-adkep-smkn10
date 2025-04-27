@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -16,24 +17,26 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        // Validasi input
         $request->validate([
-            'nip' => 'required|digits:18|size:18',
+            'nip' => 'required|digits:18',
             'password' => 'required|string|max:50',
         ]);
 
-        $users = Users::where('nip', $request->nip)->first();
+        // Cari user berdasarkan NIP
+        $user = Users::where('nip', $request->nip)->first();
 
-        if ($users && Hash::check($request->password, $users->password)) {
-            Auth::login($users);
+        // Cek apakah user ditemukan dan password cocok
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
 
-            // Arahkan ke dashboard tanpa membedakan role
-            return redirect()->route('konten.dashboard'); // Ganti dengan route dashboard yang sesuai
+            // Arahkan ke dashboard setelah login
+            return redirect()->route('konten.dashboard');
         }
 
+        // Jika gagal login
         return back()->with('error', 'NIP atau password salah');
     }
-
-
 
     public function logout()
     {

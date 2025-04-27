@@ -16,9 +16,9 @@ class Users extends Authenticatable
 
     protected $hidden = ['password'];
 
-    // Mutator untuk password agar otomatis di-hash
-    public function setPasswordAttribute($value)
+    public function biodata()
     {
-        $this->attributes['password'] = Hash::make($value);
+        return $this->hasOne(Biodata::class, 'user_id', 'id'); // Relasi satu ke satu
     }
+
 }

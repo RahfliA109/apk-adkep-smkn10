@@ -23,7 +23,7 @@ class BiodataController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'nik' => 'required|string|max:255',
-            'nuptk_nip' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
@@ -32,53 +32,41 @@ class BiodataController extends Controller
             'alamat_ktp' => 'required|string',
             'no_hp' => 'required|string',
             'email' => 'required|email',
-            'foto' => 'nullable|image|mimes:jpeg,jpg|max:2048',
-            'scan_ktp' => 'nullable|file|mimes:jpeg,jpg,png,pdf|max:2048',
+            'foto' => 'nullable|file|mimes:jpeg,jpg,png,webp,pdf,doc,docx|max:5120',
+            'scan_ktp' => 'nullable|file|mimes:jpeg,jpg,png,webp,pdf,doc,docx|max:5120',
         ]);
 
+        // Menambahkan user_id
+        $validated['user_id'] = $user->id;
+
+        // Simpan foto ke folder storagegambar
         if ($request->hasFile('foto')) {
-            $validated['foto'] = $request->file('foto')->store('foto', 'public');
+            $file = $request->file('foto');
+            $fileName = time() . '_foto_' . $file->getClientOriginalName();
+            $file->storeAs('public', $fileName); // Simpan langsung ke storage/app/public
+            $validated['foto'] = 'storage/' . $fileName; // path yang bisa diakses lewat URL
         }
-
+        
         if ($request->hasFile('scan_ktp')) {
-            $validated['scan_ktp'] = $request->file('scan_ktp')->store('scan_ktp', 'public');
+            $file = $request->file('scan_ktp');
+            $fileName = time() . '_ktp_' . $file->getClientOriginalName();
+            $file->storeAs('public', $fileName);
+            $validated['scan_ktp'] = 'storage/' . $fileName;
         }
+        
 
-        $validated['email'] = $user->email;
-
+        // Menyimpan biodata dengan user_id
         Biodata::create($validated);
 
         return redirect()->route('biodata.output')->with('success', 'Data berhasil disimpan!');
     }
 
-    public function output()
-    {
-        $user = Auth::user();
-        $biodata = Biodata::where('email', $user->email)->first();
 
-        if (!$biodata) {
-            return view('konten.datadiri', ['message' => 'Silakan isi biodata Anda.']);
-        }
 
-        return view('users.biodata.outputB', compact('biodata'));
-    }
 
-    public function edit($id)
-    {
-        $biodata = Biodata::findOrFail($id);
-
-        // Opsional: Cek agar hanya user terkait yang bisa edit
-        if ($biodata->email !== Auth::user()->email) {
-            return redirect()->back()->with('error', 'Akses ditolak.');
-        }
-
-        return view('users.biodata.edit', compact('biodata'));
-    }
 
     public function update(Request $request, $id)
     {
-        $biodata = Biodata::findOrFail($id);
-
         // Validasi input
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
@@ -90,28 +78,85 @@ class BiodataController extends Controller
             'alamat_ktp' => 'required|string',
             'no_hp' => 'required|string',
             'email' => 'required|email',
-            'foto' => 'nullable|image|mimes:jpeg,jpg|max:2048',
-            'scan_ktp' => 'nullable|file|mimes:jpeg,jpg,png,pdf|max:2048',
+            'foto' => 'nullable|file|mimes:jpeg,jpg,png,webp,pdf,doc,docx|max:5120',
+            'scan_ktp' => 'nullable|file|mimes:jpeg,jpg,png,webp,pdf,doc,docx|max:5120',
         ]);
 
-        if ($request->hasFile('foto')) {
-            if ($biodata->foto && Storage::disk('public')->exists($biodata->foto)) {
-                Storage::disk('public')->delete($biodata->foto);
-            }
-            $validated['foto'] = $request->file('foto')->store('foto', 'public');
+        if (Auth::user()->role === 'admin') {
+            // Admin bisa edit siapa saja
+            $biodata = Biodata::findOrFail($id);
+            $userId = $biodata->user_id ?? null; // Optional, kalau mau redirect ke detail user
+        } else {
+            // User hanya bisa edit biodatanya sendiri
+            $biodata = Biodata::where('id', $id)->where('email', Auth::user()->email)->firstOrFail();
         }
 
-        if ($request->hasFile('scan_ktp')) {
-            if ($biodata->scan_ktp && Storage::disk('public')->exists($biodata->scan_ktp)) {
-                Storage::disk('public')->delete($biodata->scan_ktp);
+        // Update file foto jika ada
+        if ($request->hasFile('foto')) {
+            if ($biodata->foto && \Storage::disk('public')->exists($biodata->foto)) {
+                \Storage::disk('public')->delete($biodata->foto);
             }
-            $validated['scan_ktp'] = $request->file('scan_ktp')->store('scan_ktp', 'public');
+            $fileName = 'foto_' . time() . '_' . $request->file('foto')->getClientOriginalName();
+            $validated['foto'] = $request->file('foto')->storeAs('storagegambar', $fileName, 'public');
+        }
+
+        // Update scan KTP jika ada
+        if ($request->hasFile('scan_ktp')) {
+            if ($biodata->scan_ktp && \Storage::disk('public')->exists($biodata->scan_ktp)) {
+                \Storage::disk('public')->delete($biodata->scan_ktp);
+            }
+            $fileName = 'ktp_' . time() . '_' . $request->file('scan_ktp')->getClientOriginalName();
+            $validated['scan_ktp'] = $request->file('scan_ktp')->storeAs('storagegambar', $fileName, 'public');
         }
 
         $biodata->update($validated);
 
-        return redirect()->route('biodata.output')->with('success', 'Data berhasil diperbarui!');
+        // Redirect berdasarkan role
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('akun.lihat', $userId)->with('success', 'Biodata berhasil diperbarui.');
+        } else {
+            return redirect()->route('biodata.output')->with('success', 'Data berhasil diperbarui!');
+        }
     }
+
+
+
+
+
+    public function output()
+{
+    $user = Auth::user();
+    $biodata = Biodata::where('email', $user->email)->first();
+
+    if (!$biodata) {
+        return view('users.biodata.biodata', ['message' => 'Silakan isi biodata Anda.']);
+    }
+
+    return view('users.biodata.outputB', compact('biodata'));
+}
+
+
+
+
+
+
+
+    public function edit($id)
+    {
+        if (Auth::user()->role === 'admin') {
+            // Admin bisa akses data siapa saja
+            $biodata = Biodata::findOrFail($id);
+        } else {
+            // User hanya boleh akses data miliknya
+            $biodata = Biodata::where('user_id', Auth::id())->findOrFail($id);
+        }
+
+        return view('users.biodata.edit', compact('biodata'));
+    }
+
+
+
+
 
     public function destroy($id)
     {
@@ -135,4 +180,31 @@ class BiodataController extends Controller
 
         return redirect()->route('biodata.output')->with('success', 'Data berhasil dihapus!');
     }
+
+
+
+
+    // BiodataController.php
+    public function preview($filename)
+{
+    $path = storage_path('app/public/storagegambar/' . $filename);
+
+    // Cek apakah file ada
+    if (!file_exists($path)) {
+        abort(404, 'File tidak ditemukan.');
+    }
+
+    // Cek apakah file gambar atau bukan
+    $mimeType = mime_content_type($path);
+    
+    // Jika file gambar, tampilkan gambar
+    if (Str::startsWith($mimeType, 'image')) {
+        return response()->file($path);
+    }
+
+    // Jika bukan gambar, tampilkan file untuk di-download
+    return response()->download($path);
+}
+
+
 }

@@ -1,5 +1,5 @@
 @extends('sidebar.sidebar')
-<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/konten/dashboard.css">
 
 @section('konten')
     <div class="container mx-auto py-8">

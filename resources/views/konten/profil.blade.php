@@ -58,7 +58,7 @@
 
         <!-- Tombol di bawah -->
         <div class="form-button">
-            <a href="{{ url()->previous() }}">
+            <a href="{{route('konten.dashboard')}}">
                 <button type="button" class="btn-back">Kembali</button>
             </a>
             <button type="submit" class="btn-update">Update Profile</button>

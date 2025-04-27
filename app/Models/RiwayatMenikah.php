@@ -12,5 +12,10 @@ class RiwayatMenikah extends Model
         'user_id', 'status_perkawinan', 'tanggal_menikah_cerai',
         'nama_pasangan', 'pekerjaan_pasangan', 'jumlah_anak', 'akta_nikah'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
 

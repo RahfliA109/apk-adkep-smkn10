@@ -6,13 +6,6 @@
 <div class="container mx-auto py-8">
     <h2>Form Riwayat Menikah</h2>
 
-    {{-- Notifikasi sukses --}}
-    @if(session('success'))
-        <div class="alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     {{-- Form input --}}
     <form action="{{ route('riwayatMenikah.store') }}" method="POST" enctype="multipart/form-data">
 
@@ -20,14 +13,8 @@
 
         <!-- Status Perkawinan -->
         <div class="form-group">
-            <label>Status Perkawinan <span class="text-red-500">*</span></label>
-            <select name="status_perkawinan" required>
-                <option value="">-- Pilih Status --</option>
-                <option value="Kawin">Kawin</option>
-                <option value="Belum Kawin">Belum Kawin</option>
-                <option value="Duda">Duda</option>
-                <option value="Janda">Janda</option>
-            </select>
+            <label>Status Perkawinan</label>
+            <input type="text" name="status_perkawinan">
         </div>
 
         <!-- Tanggal Menikah/Cerai -->
@@ -58,8 +45,7 @@
             <input type="file" name="akta_nikah" accept=".pdf,.jpg,.jpeg">
         </div>
 
-        <button type="submit" class="btn-submit">Simpan Data</button>
-        <a href="" class="btn-cancel">Kembali</a>
+        <button type="submit" class="btn-submit">Simpan Data Menikah</button>
     </form>
 </div>
 @endsection

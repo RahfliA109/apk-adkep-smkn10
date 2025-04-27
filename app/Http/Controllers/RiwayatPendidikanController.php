@@ -11,9 +11,9 @@ class RiwayatPendidikanController extends Controller
     // Menampilkan form input atau output jika data sudah ada
     public function index()
     {
-        $data = RiwayatPendidikan::where('user_id', Auth::id())->first();
-        if ($data) {
-            return view('users.pendidikan.outputP', compact('data'));
+        $pendidikan = RiwayatPendidikan::where('user_id', Auth::id())->first();
+        if ($pendidikan) {
+            return view('users.pendidikan.outputP', compact('pendidikan'));
         }
         return view('users.pendidikan.pendidikan');
     }
@@ -33,32 +33,39 @@ class RiwayatPendidikanController extends Controller
             return redirect()->route('riwayatPendidikan.index')->with('error', 'Data sudah pernah diisi.');
         }
 
-        $data = $request->except(['_token']);
-        $data['user_id'] = Auth::id();
+        $pendidikan = $request->except(['_token']);
+        $pendidikan['user_id'] = Auth::id();
 
         if ($request->hasFile('ijazah')) {
-            $data['ijazah'] = $request->file('ijazah')->store('dokumen/ijazah', 'public');
+            $pendidikan['ijazah'] = $request->file('ijazah')->store('dokumen/ijazah', 'public');
         }
 
         if ($request->hasFile('sertifikat_pelatihan')) {
-            $data['sertifikat_pelatihan'] = $request->file('sertifikat_pelatihan')->store('dokumen/sertifikat', 'public');
+            $pendidikan['sertifikat_pelatihan'] = $request->file('sertifikat_pelatihan')->store('dokumen/sertifikat', 'public');
         }
 
-        RiwayatPendidikan::create($data);
+        RiwayatPendidikan::create($pendidikan);
 
         return redirect()->route('riwayatPendidikan.index')->with('success', 'Data berhasil disimpan!');
     }
 
     // Menampilkan form edit jika data sudah ada
-    public function edit()
+    public function edit($id)
 {
-    $pendidikan = RiwayatPendidikan::where('user_id', Auth::id())->firstOrFail();
+    if (Auth::user()->role === 'admin') {
+        // Admin bisa akses data siapa saja
+        $pendidikan = RiwayatPendidikan::findOrFail($id);
+    } else {
+        // User hanya boleh akses data miliknya
+        $pendidikan = RiwayatPendidikan::where('user_id', Auth::id())->findOrFail($id);
+    }
+
     return view('users.pendidikan.edit_riwayatpendidikan', compact('pendidikan'));
 }
 
 
    // Menyimpan perubahan pada data pendidikan
-public function update(Request $request, $id)
+   public function update(Request $request, $id)
 {
     $request->validate([
         'jenjang_pendidikan' => 'required',
@@ -67,35 +74,57 @@ public function update(Request $request, $id)
         'ijazah' => 'nullable|file|mimes:pdf,jpg,jpeg|max:2048',
         'sertifikat_pelatihan' => 'nullable|file|mimes:pdf,jpg,jpeg|max:2048',
     ]);
-
-    $data = RiwayatPendidikan::where('user_id', Auth::id())->findOrFail($id);
+    
+    if (Auth::user()->role === 'admin') {
+        // Admin bisa mengupdate data siapa saja
+        $pendidikan = RiwayatPendidikan::findOrFail($id);
+        $userId = $pendidikan->user_id; // Simpan user_id untuk redirect
+    } else {
+        // User hanya boleh mengupdate data miliknya
+        $pendidikan = RiwayatPendidikan::where('user_id', Auth::id())->findOrFail($id);
+    }
+    
     $input = $request->except(['_token', '_method']);
-
+    
     if ($request->hasFile('ijazah')) {
         $input['ijazah'] = $request->file('ijazah')->store('dokumen/ijazah', 'public');
     }
-
+    
     if ($request->hasFile('sertifikat_pelatihan')) {
         $input['sertifikat_pelatihan'] = $request->file('sertifikat_pelatihan')->store('dokumen/sertifikat', 'public');
     }
-
-    $data->update($input);
-
-    return redirect()->route('riwayatPendidikan.index')->with('success', 'Data berhasil diperbarui.');
+    
+    $pendidikan->update($input);
+    
+    // Redirect berdasarkan role
+    if (Auth::user()->role === 'admin') {
+        // Arahkan admin ke detail user
+        return redirect()->route('akun.lihat', $userId)->with('success', 'Data pendidikan berhasil diperbarui.');
+    } else {
+        // User biasa diarahkan ke halaman pendidikan
+        return redirect()->route('riwayatPendidikan.index')->with('success', 'Data berhasil diperbarui.');
+    }
 }
 
+   
 
     // Menghapus data pendidikan milik user
-public function destroy($id)
-{
-    $data = RiwayatPendidikan::where('user_id', Auth::id())->findOrFail($id);
-
-    if ($data) {
-        $data->delete();
-        return redirect()->route('riwayatPendidikan.index')->with('success', 'Data berhasil dihapus.');
+    public function destroy($id)
+    {
+        if (Auth::user()->role === 'admin') {
+            // Admin bisa menghapus data siapa saja
+            $pendidikan = RiwayatPendidikan::findOrFail($id);
+        } else {
+            // User hanya boleh menghapus data miliknya
+            $pendidikan = RiwayatPendidikan::where('user_id', Auth::id())->findOrFail($id);
+        }
+        
+        if ($pendidikan) {
+            $pendidikan->delete();
+            return redirect()->route('riwayatPendidikan.index')->with('success', 'Data berhasil dihapus.');
+        }
+        
+        return redirect()->route('riwayatPendidikan.index')->with('error', 'Data tidak ditemukan.');
     }
-
-    return redirect()->route('riwayatPendidikan.index')->with('error', 'Data tidak ditemukan.');
-}
-
+    
 }

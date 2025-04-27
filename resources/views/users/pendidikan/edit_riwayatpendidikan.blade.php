@@ -1,10 +1,14 @@
 @extends('layout.sidebar')
-<link rel="stylesheet" href="{{ asset('css/form-input.css') }}">
+<link rel="stylesheet" href="{{ asset('css/konten/form-input.css') }}">
 <title>Edit Riwayat Pendidikan</title>
 
 @section('konten')
+<body class="edit-page">
+<div class="kotak">
 <div class="container mx-auto py-8">
+    <div class="judul">
     <h2>Edit Riwayat Pendidikan</h2>
+    </div>
 
     <form action="{{ route('riwayatPendidikan.update', $pendidikan->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -67,6 +71,9 @@
         </div>
 
         <button type="submit">Update Riwayat Pendidikan</button>
+        <a href="{{ url()->previous() }}" class="tombol">Batal</a>
     </form>
 </div>
+</div>
+</body>
 @endsection
